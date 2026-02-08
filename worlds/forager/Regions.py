@@ -4,7 +4,6 @@ import pkgutil
 from BaseClasses import Region, MultiWorld, Entrance, Location, LocationProgressType, CollectionState, ItemClassification as IClass
 from worlds.generic.Rules import add_rule
 
-offset = 4072780000
 
 def can_make_leather(state : CollectionState, player : int):
     return state.has_all(("Foraging","Sewing"), player)
@@ -59,11 +58,7 @@ def load_tables(item_name_to_id,location_name_to_id):
         else:
             for location, id in category.items():
                 location_name_to_id[location] = id
-    #Applying the offset to both table
-    for item_name,item_id in item_name_to_id.items():
-        item_name_to_id[item_name] = item_id + offset
-    for location_name,location_id in location_name_to_id.items():
-        item_name_to_id[location_name] = location_id + offset
+
 
 class ForagerLocation(Location):
     game = "Forager"

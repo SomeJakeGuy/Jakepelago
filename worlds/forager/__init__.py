@@ -40,5 +40,8 @@ class ForagerWorld(World):
             if(items < locations):
                 self.multiworld.itempool.append(ForagerItem(item,IClass.progression,address,self.player))
                 items += 1
+        for i in range(items,locations):
+            self.multiworld.itempool.append(ForagerItem("Nothing!",IClass.progression,364,self.player))
+
     
     

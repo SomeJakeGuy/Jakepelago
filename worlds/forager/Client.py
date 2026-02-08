@@ -6,7 +6,8 @@ from copy import deepcopy
 from typing import Iterable
 from NetUtils import decode, encode, JSONtoTextParser, JSONMessagePart, NetworkItem, NetworkPlayer
 from MultiServer import Endpoint
-from CommonClient import CommonContext, gui_enabled, ClientCommandProcessor, logger, get_base_parser
+from CommonClient import CommonContext, gui_enabled, ClientCommandProcessor, logger, get_base_parser, server_loop
+import aiohttp.web
 
 DEBUG = True
 
@@ -15,21 +16,14 @@ class ForagerJSONToTextParser(JSONtoTextParser):
         return self._handle_text(node)  # No colors for the in-game text
 
 
-class ForagerCommandProcessor(ClientCommandProcessor):
-    def _cmd_forager(self):
-        """Check Forager Connection State"""
-        if isinstance(self.ctx, ForagerContext):
-            logger.info(f"Forager Status: {self.ctx.get_forager_status()}")
-
 
 class ForagerContext(CommonContext):
-    command_processor = ForagerCommandProcessor
-    game = "shapez"
+    command_processor = ClientCommandProcessor
+    game = "Forager"
 
     def __init__(self, server_address, password):
         super().__init__(server_address, password)
-        self.proxy = None
-        self.proxy_task = None
+        self.http_task = None
         self.gamejsontotext = ForagerJSONToTextParser(self)
         self.autoreconnect_task = None
         self.endpoint = None
@@ -48,36 +42,12 @@ class ForagerContext(CommonContext):
         await self.get_username()
         await self.send_connect()
 
-    def get_forager_status(self) -> str:
-        if not self.is_proxy_connected():
-            return "Not connected to Forager"
-        return "Connected to Forager"
-
-    async def send_msgs_proxy(self, msgs: Iterable[dict]) -> bool:
-        """ `msgs` JSON serializable """
-        if not self.endpoint or not self.endpoint.socket.open or self.endpoint.socket.closed:
-            return False
-
-        if DEBUG:
-            logger.info(f"Outgoing message: {msgs}")
-
-        await self.endpoint.socket.send(msgs)
-        return True
-
     async def disconnect(self, allow_autoreconnect: bool = False):
         await super().disconnect(allow_autoreconnect)
 
-    async def disconnect_proxy(self):
-        if self.endpoint and not self.endpoint.socket.closed:
-            await self.endpoint.socket.close()
-        if self.proxy_task is not None:
-            await self.proxy_task
 
     def is_connected(self) -> bool:
         return self.server and self.server.socket.open
-
-    def is_proxy_connected(self) -> bool:
-        return self.endpoint and self.endpoint.socket.open
 
     def on_print_json(self, args: dict):
         text = self.gamejsontotext(deepcopy(args["data"]))
@@ -149,105 +119,41 @@ class ForagerContext(CommonContext):
         ui = super().make_gui()
         ui.base_title = "Archipelago Forager Client"
         return ui
+    
+    async def locationHandler(self, request: aiohttp.web.Request) -> aiohttp.web.Response:
+        requestjson = await request.json()
+        logger.info(requestjson)
+        try:
+            await self.check_locations(requestjson["Locations"])
+        except:
+            pass
+        localResponse = aiohttp.web.json_response({"message": "This is a placeholder JSON response."},status=200)
+        return localResponse
+    
+    #async def itemsHandler(self, request: aiohttp.web.Request) -> aiohttp.web.Response:
+    #    """handle GET at /Items"""
+    #    response = self.build_item_response()
+    #    return aiohttp.web.json_response(response)
+    
 
-
-async def proxy(websocket, path: str = "/", ctx: ForagerContext = None):
-    ctx.endpoint = Endpoint(websocket)
-    try:
-        await on_client_connected(ctx)
-
-        if ctx.is_proxy_connected():
-            async for data in websocket:
-                if DEBUG:
-                    logger.info(f"Incoming message: {data}")
-
-                for msg in decode(data):
-                    logger.info(msg["cmd"])
-                    if msg["cmd"] == "Connect":
-                        # Proxy is connecting, make sure it is valid
-                        if msg["game"] != "Forager":
-                            logger.info("Aborting proxy connection: game is not Forager")
-                            await ctx.disconnect_proxy()
-                            break
-
-                        if ctx.seed_name:
-                            seed_name = msg.get("seed_name", "")
-                            if seed_name != "" and seed_name != ctx.seed_name:
-                                logger.info("Aborting proxy connection: seed mismatch from save file")
-                                logger.info(f"Expected: {ctx.seed_name}, got: {seed_name}")
-                                text = encode([{"cmd": "PrintJSON",
-                                                "data": [{"text": "Connection aborted - save file to seed mismatch"}]}])
-                                await ctx.send_msgs_proxy(text)
-                                await ctx.disconnect_proxy()
-                                break
-
-                        if ctx.auth:
-                            name = msg.get("name", "")
-                            if name != "" and name != ctx.auth:
-                                logger.info("Aborting proxy connection: player name mismatch from save file")
-                                logger.info(f"Expected: {ctx.auth}, got: {name}")
-                                text = encode([{"cmd": "PrintJSON",
-                                                "data": [{"text": "Connection aborted - player name mismatch"}]}])
-                                await ctx.send_msgs_proxy(text)
-                                await ctx.disconnect_proxy()
-                                break
-
-                        if ctx.connected_msg and ctx.is_connected():
-                            await ctx.send_msgs_proxy(ctx.connected_msg)
-                            ctx.update_items()
-                        continue
-
-                    if not ctx.is_proxy_connected():
-                        break
-
-                    await ctx.send_msgs([msg])
-
-    except Exception as e:
-        if not isinstance(e, websockets.WebSocketException):
-            logger.exception(e)
-    finally:
-        await ctx.disconnect_proxy()
-
-
-async def on_client_connected(ctx: ForagerContext):
-    if ctx.room_info and ctx.is_connected():
-        await ctx.send_msgs_proxy(ctx.room_info)
-    else:
-        ctx.awaiting_info = True
-
-
-async def proxy_loop(ctx: ForagerContext):
-    try:
-        while not ctx.exit_event.is_set():
-            if len(ctx.server_msgs) > 0:
-                for msg in ctx.server_msgs:
-                    await ctx.send_msgs_proxy(msg)
-
-                ctx.server_msgs.clear()
-            await asyncio.sleep(0.1)
-    except Exception as e:
-        logger.exception(e)
-        logger.info("Aborting the Forager Client due to errors")
 
 
 def launch():
     async def main():
+        from .Server import ArchiHandler, http_server_loop
         parser = get_base_parser()
         args = parser.parse_args()
 
         ctx = ForagerContext(args.connect, args.password)
         logger.info("Starting the Forager proxy server")
-        ctx.proxy = websockets.serve(functools.partial(proxy, ctx=ctx),
-                                     host="localhost", port=8000, ping_timeout=999999, ping_interval=999999)
-        ctx.proxy_task = asyncio.create_task(proxy_loop(ctx), name="ProxyLoop")
-
+        server = ArchiHandler(ctx)
+        ctx.httpServer_task = asyncio.create_task(http_server_loop(server), name="http server loop")
+        ctx.server_task = asyncio.create_task(server_loop(ctx), name="server loop")
         if gui_enabled:
             ctx.run_gui()
         ctx.run_cli()
 
-        await ctx.proxy
-        await ctx.proxy_task
         await ctx.exit_event.wait()
-
+        await ctx.shutdown()
     Utils.init_logging("ForagerClient")
     asyncio.run(main())
