@@ -149,7 +149,7 @@ class ArchiHandler:
         #self.app.router.add_post('/Goal', self.ctx.goalHandler)
         #self.app.router.add_post('/Death', self.ctx.deathHandler)
         #self.app.router.add_get('/Deathpoll', self.ctx.deathpollHandler)
-        #self.app.router.add_get('/Items', self.ctx.itemsHandler)
+        self.app.router.add_get('/Items', self.ctx.itemsHandler)
         #self.app.router.add_get('/Datapackage', self.ctx.datapackageHandler)
         #self.app.router.add_get('/ErConnections', self.ctx.erConnHandler)
         return self.app

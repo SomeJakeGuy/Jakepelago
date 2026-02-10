@@ -130,11 +130,32 @@ class ForagerContext(CommonContext):
         localResponse = aiohttp.web.json_response({"message": "This is a placeholder JSON response."},status=200)
         return localResponse
     
-    #async def itemsHandler(self, request: aiohttp.web.Request) -> aiohttp.web.Response:
-    #    """handle GET at /Items"""
-    #    response = self.build_item_response()
-    #    return aiohttp.web.json_response(response)
+    async def itemsHandler(self, request: aiohttp.web.Request) -> aiohttp.web.Response:
+        """handle GET at /Items"""
+        response = self.build_item_response()
+        return aiohttp.web.json_response(response)
     
+    def build_item_response(self):
+        """
+        expected return value to be like:
+        {"Gear" : {"pickaxe" : 3, "sword" : 2}, "Skills" : [0,1,0,0,1,...]}
+        "Skills is a 64 long array" 
+        """
+        skills = [0 for i in range(64)]
+        gear = {}
+        for item in self.items_received:
+            if(item[0] >= 300 and item[0] < 364):
+                skills[item[0] - 300] = 1
+            elif(item[0] >= 249 and item[0] <= 260):
+                name = self.item_names["Forager"][item[0]]
+                name = name[12:].lower()
+                gear[name] = gear.get(name,0) + 1
+        itemmessage = {
+            "Gear" : gear,
+            "Skills" : skills
+        }
+        return itemmessage
+
 
 
 
