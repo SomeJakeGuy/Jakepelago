@@ -5,6 +5,7 @@ from worlds.LauncherComponents import Component, components, icon_paths, launch 
 from BaseClasses import ItemClassification as IClass, Item
 
 from .forager_constants import GAME_NAME, CLIENT_NAME
+from .forager_rules import create_region_access_rules
 from .forager_webworld import ForagerWebWorld
 from .helper_functions import load_tables, load_json_tables
 from .forager_regions import load_regions
@@ -50,8 +51,8 @@ class ForagerWorld(World):
 
     def create_rules(self):
         """Attach the various rules for both locations and regions"""
-        # TODO move the region logic create to here, potentially make a new function to iterate through regions again.
-        pass
+        # TODO make location rules as well.
+        create_region_access_rules(self)
 
 
     def create_items(self):
