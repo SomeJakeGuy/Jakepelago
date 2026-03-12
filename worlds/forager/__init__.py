@@ -56,8 +56,11 @@ class ForagerWorld(World):
                 continue
 
             for item_name, item_id in category.items():
-                item_pool.append(Item(item_name, IClass.progression, item_id["id"] if
-                    category_name == "Tools" else item_id, self.player))
+                if category_name == "Tools":
+                    for tool_count in range(item_id["count"]):
+                        item_pool.append(Item(item_name, IClass.progression, item_id["id"], self.player))
+                else:
+                    item_pool.append(Item(item_name, IClass.progression, item_id, self.player))
 
         # Calculate the number of progression items required vs the number of unfilled locations left.
         # Create that many of filler items remaining.
