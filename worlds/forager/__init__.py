@@ -8,7 +8,7 @@ from .forager_constants import GAME_NAME, CLIENT_NAME
 from .forager_rules import create_region_access_rules
 from .forager_webworld import ForagerWebWorld
 from .helper_functions import load_tables, load_json_tables
-from .forager_regions import load_regions
+from .forager_regions import load_regions, create_locations
 from .forager_options import ForagerOptions
 
 
@@ -47,6 +47,7 @@ class ForagerWorld(World):
     def create_regions(self):
         """Loads both the regions and the locations"""
         load_regions(self)
+        create_locations(self)
 
 
     def create_rules(self):
