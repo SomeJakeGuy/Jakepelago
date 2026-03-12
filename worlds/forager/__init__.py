@@ -8,6 +8,7 @@ from .forager_constants import GAME_NAME, CLIENT_NAME
 from .forager_webworld import ForagerWebWorld
 from .helper_functions import load_tables, load_json_tables
 from .forager_regions import load_regions
+from .forager_options import ForagerOptions
 
 
 # Define the client launch state function and add it to the AP Launcher
@@ -26,14 +27,20 @@ class ForagerWorld(World):
     item_name_to_id, item_name_groups, location_name_to_id, location_name_groups = (
         load_tables(json_tables["items"], json_tables["locations"]))
 
+    options: ForagerOptions
+    options_dataclass = ForagerOptions
+
     web = ForagerWebWorld()
+    required_level_count: int
 
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
+        self.required_level_count = 0
 
     def generate_early(self) -> None:
         """Used for evaluating any OptionErrors we see fit, updating some option values based on invalid combos, etc."""
-        pass
+        if self.options.game_mode.value == self.options.game_mode.option_default:
+            self.required_level_count = 65
 
 
     def create_regions(self):
