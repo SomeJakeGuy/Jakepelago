@@ -44,4 +44,4 @@ def load_tables(item_json: dict, location_json: dict) -> tuple:
                 location_name_to_id[location] = loc_id
                 location_categories[category_name].add(location)
 
-    return item_name_to_id, item_categories, location_name_to_id
+    return item_name_to_id, item_categories, item_class_sets, location_name_to_id, location_categories
