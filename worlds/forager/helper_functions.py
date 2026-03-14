@@ -20,9 +20,12 @@ def load_tables(item_json: dict, location_json: dict) -> tuple:
     # Loading item table dicts
     item_name_to_id: dict[str, int] = {}
     item_categories: dict[str, set[str]] = {} # Adds the item group for hinting by group name, etc.
+    item_class_sets: dict[str, set[str]] = {} # Adds each item classification as its own set
+
     for category_name, category in item_json.items():
         item_categories.setdefault(category_name, set())
         for item_name, item_data in category.items():
+            item_class_sets.setdefault(item_data["classification"], set()).add(item_name)
             item_categories[category_name].add(item_name)  # Adds the item name in the "Tools" item_group
             item_name_to_id[item_name] = item_data["id"]
 
