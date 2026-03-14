@@ -44,7 +44,7 @@ region_access: dict[str, ForagerRegionData] = {
 }
 
 def load_regions(world: "ForagerWorld"):
-    region_list: list[str] = list(world.json_tables["regions"]) + list(world.json_tables["itemslands"]["Lands"].keys())
+    region_list: list[str] = list(world.json_tables["regions"]) + list(world.json_tables["islands"]["Lands"].keys())
     for region_name in region_list:
         world.multiworld.regions.append(Region(region_name, world.player, world.multiworld))
 
