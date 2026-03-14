@@ -22,10 +22,14 @@ components.append(Component(CLIENT_NAME, func=launch_client, component_type=Type
 class ForagerWorld(World):
     game = GAME_NAME
     item_name_to_id: ClassVar[dict[str, int]]
+    item_name_groups: ClassVar[dict[str, set[str]]]
+    item_class_sets: ClassVar[dict[str, dict[str, str]]]
+
     location_name_to_id: ClassVar[dict[str, int]]
+    location_name_groups: ClassVar[dict[str, set[str]]]
     json_tables: dict[str, dict] = load_json_tables()
 
-    item_name_to_id, item_name_groups, location_name_to_id, location_name_groups = (
+    item_name_to_id, item_name_groups, item_class_sets, location_name_to_id, location_name_groups = (
         load_tables(json_tables["items"], json_tables["locations"]))
 
     options: ForagerOptions
@@ -60,19 +64,16 @@ class ForagerWorld(World):
         """Creates the various items required based on the user's options"""
         item_pool: list[Item] = []
 
-        for category_name, category in self.json_tables["items"].items():
-            if category_name == "Misc":
-                continue
-
-            for item_name, item_id in category.items():
-                if category_name == "Tools":
-                    for tool_count in range(item_id["count"]):
-                        item_pool.append(Item(item_name, IClass.progression, item_id["id"], self.player))
-                else:
-                    item_pool.append(Item(item_name, IClass.progression, item_id, self.player))
+        for prog_name, prog_category in self.item_class_sets["Progression"].items():
+            json_data: dict = self.json_tables["items"][prog_category][prog_name]
+            if json_data.get("count", ""):
+                for tool_count in range(json_data["count"]):
+                    item_pool.append(Item(prog_name, IClass.progression, json_data["id"], self.player))
+            else:
+                item_pool.append(Item(prog_name, IClass.progression, json_data["id"], self.player))
 
         # Calculate the number of progression items required vs the number of unfilled locations left.
-        # Create that many of filler items remaining.
+        # Create that many of useful/filler items remaining.
         locations_left_to_fill: int = len(self.multiworld.get_unfilled_locations(self.player)) - len(item_pool)
         for loc_to_fill in range(locations_left_to_fill):
             # Pick a random filler item and add that to the item pool
