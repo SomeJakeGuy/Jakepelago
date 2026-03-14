@@ -22,15 +22,9 @@ def load_tables(item_json: dict, location_json: dict) -> tuple:
     item_categories: dict[str, set[str]] = {} # Adds the item group for hinting by group name, etc.
     for category_name, category in item_json.items():
         item_categories.setdefault(category_name, set())
-
-        if category_name == "Tools":
-            for tool_name, tool in category.items():
-                item_categories[category_name].add(tool_name) # Adds the item name in the "Tools" item_group
-                item_name_to_id[tool_name] = tool["id"]
-                item_categories[category_name].add(tool_name)
-        else:
-            item_name_to_id.update(category)
-            item_categories[category_name].add(category.keys())
+        for item_name, item_data in category.items():
+            item_categories[category_name].add(item_name)  # Adds the item name in the "Tools" item_group
+            item_name_to_id[item_name] = item_data["id"]
 
     # Loading location table dicts
     location_name_to_id: dict[str, int] = {}
