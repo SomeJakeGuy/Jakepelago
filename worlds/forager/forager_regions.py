@@ -1,14 +1,13 @@
 from enum import StrEnum
 from typing import TYPE_CHECKING, NamedTuple
 
-from BaseClasses import Region
-
+from BaseClasses import Region, Location
 if TYPE_CHECKING:
     from worlds.forager import ForagerWorld
 
 
 class LevelGroups(StrEnum):
-    FirstGroup = "Levels 1-5"
+    FirstGroup = "Levels 2-5"
     SecondGroup = "Levels 6-10"
     ThirdGroup = "Levels 11-20"
     FourthGroup = "Levels 21-30"
@@ -56,5 +55,40 @@ def load_regions(world: "ForagerWorld"):
 
 
 def create_locations(world: "ForagerWorld"):
-    # TODO start moving locations into their logical regions. Create locked items for each land, rules to follow later.
-    pass
+    # Create all levels first.
+    first_level: int = world.json_tables["locations"]["first_id"]
+    last_level: int = world.json_tables["locations"]["last_id"]
+    for i in range(2, last_level - first_level + 2):
+        group_to_use: str = str(LevelGroups.FirstGroup.name)
+        match i:
+            case i if 5 < i <= 10:
+                group_to_use: str = str(LevelGroups.SecondGroup.name)
+            case i if 10 < i <= 20:
+                group_to_use: str = str(LevelGroups.SecondGroup.name)
+            case i if 20 < i <= 30:
+                group_to_use: str = str(LevelGroups.FourthGroup.name)
+            case i if 30 < i <= 40:
+                group_to_use: str = str(LevelGroups.FifthGroup.name)
+            case i if 40 < i <= 50:
+                group_to_use: str = str(LevelGroups.SixthGroup.name)
+            case i if 50 < i <= 60:
+                group_to_use: str = str(LevelGroups.SeventhGroup.name)
+            case i if 60 < i <= 65:
+                group_to_use: str = str(LevelGroups.EighthGroup.name)
+
+        world.get_region(group_to_use).locations.append(
+            Location(world.player, f"Level {i}", (first_level + i) - 2))
+
+    # Create the tools, minus the rods
+    tools_not_create: list[str] = ["Fire Rod", "Meteor Rod", "Thunder Rod", "Storm Rod", "Ice Rod",
+        "Blizzard Rod", "Necro Rod", "Death Rod"]
+    for loc_group, loc_list in world.json_tables["locations"].items():
+        if loc_group == "Levels" or loc_group == "Bundles":
+            continue
+
+        for loc_name, loc_data in loc_list.items():
+            if loc_name in tools_not_create:
+                continue
+
+            world.get_region(str(loc_data["region"])).locations.append(Location(
+                world.player, loc_name, loc_data["id"]))
