@@ -8,7 +8,7 @@ if TYPE_CHECKING:
 
 
 class ForagerItem(Item):
-    game: GAME_NAME
+    game: str = GAME_NAME
     
     def __init__(self, name: str, classification: IC, code: int, player: int):
         super().__init__(name, classification, code, player)

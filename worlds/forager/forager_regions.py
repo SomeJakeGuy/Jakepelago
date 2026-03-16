@@ -26,7 +26,7 @@ class ForagerRegionData(NamedTuple):
 
 
 class ForagerLocation(Location):
-    game: GAME_NAME
+    game: str = GAME_NAME
 
     def __init__(self, player: int, name: str = '', address: Optional[int] = None, parent: Optional[Region] = None):
         super().__init__(player, name, address, parent)
