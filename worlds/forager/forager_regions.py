@@ -46,14 +46,14 @@ region_access: dict[str, ForagerRegionData] = {
     "Graveyard": ForagerRegionData("Winter"),
     "Fire": ForagerRegionData("Graveyard"),
 
-    str(LevelGroups.FirstGroup.name): ForagerRegionData("Menu"),
-    str(LevelGroups.SecondGroup.name): ForagerRegionData(str(LevelGroups.FirstGroup.name), ["Industry"]),
-    str(LevelGroups.ThirdGroup.name): ForagerRegionData(str(LevelGroups.SecondGroup.name)),
-    str(LevelGroups.FourthGroup.name): ForagerRegionData(str(LevelGroups.ThirdGroup.name)),
-    str(LevelGroups.FifthGroup.name): ForagerRegionData(str(LevelGroups.FourthGroup.name)),
-    str(LevelGroups.SixthGroup.name): ForagerRegionData(str(LevelGroups.FifthGroup.name)),
-    str(LevelGroups.SeventhGroup.name): ForagerRegionData(str(LevelGroups.SixthGroup.name)),
-    str(LevelGroups.EighthGroup.name): ForagerRegionData(str(LevelGroups.SeventhGroup.name)),
+    str(LevelGroups.FirstGroup): ForagerRegionData("Menu"),
+    str(LevelGroups.SecondGroup): ForagerRegionData(str(LevelGroups.FirstGroup), ["Industry"]),
+    str(LevelGroups.ThirdGroup): ForagerRegionData(str(LevelGroups.SecondGroup)),
+    str(LevelGroups.FourthGroup): ForagerRegionData(str(LevelGroups.ThirdGroup)),
+    str(LevelGroups.FifthGroup): ForagerRegionData(str(LevelGroups.FourthGroup)),
+    str(LevelGroups.SixthGroup): ForagerRegionData(str(LevelGroups.FifthGroup)),
+    str(LevelGroups.SeventhGroup): ForagerRegionData(str(LevelGroups.SixthGroup)),
+    str(LevelGroups.EighthGroup): ForagerRegionData(str(LevelGroups.SeventhGroup)),
 }
 
 def load_regions(world: "ForagerWorld"):
