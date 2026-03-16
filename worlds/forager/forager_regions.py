@@ -56,8 +56,8 @@ def load_regions(world: "ForagerWorld"):
 
 def create_locations(world: "ForagerWorld"):
     # Create all levels first.
-    first_level: int = world.json_tables["locations"]["Levels"]["first_id"]
-    last_level: int = world.json_tables["locations"]["Levels"]["last_id"]
+    first_level: int = world.json_tables["locations"]["Level"]["first_id"]
+    last_level: int = world.json_tables["locations"]["Level"]["last_id"]
     for i in range(2, last_level - first_level + 2):
         group_to_use: str = str(LevelGroups.FirstGroup.name)
         match i:
