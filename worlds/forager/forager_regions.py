@@ -1,7 +1,9 @@
 from enum import StrEnum
-from typing import TYPE_CHECKING, NamedTuple
+from typing import TYPE_CHECKING, NamedTuple, Optional
 
 from BaseClasses import Region, Location
+
+from .forager_constants import GAME_NAME
 if TYPE_CHECKING:
     from worlds.forager import ForagerWorld
 
@@ -22,6 +24,12 @@ class ForagerRegionData(NamedTuple):
     parent_region: str
     items_required: list[str] = None
 
+
+class ForagerLocation(Location):
+    game: GAME_NAME
+
+    def __init__(self, player: int, name: str = '', address: Optional[int] = None, parent: Optional[Region] = None):
+        super().__init__(player, name, address, parent)
 
 # Defines the region and any access related requirements
 region_access: dict[str, ForagerRegionData] = {
@@ -76,8 +84,8 @@ def create_locations(world: "ForagerWorld"):
             case i if 60 < i <= 65:
                 group_to_use: str = str(LevelGroups.EighthGroup)
 
-        world.get_region(group_to_use).locations.append(
-            Location(world.player, f"Level {i}", (first_level + i) - 2))
+        level_region: Region = world.get_region(group_to_use)
+        level_region.locations.append(ForagerLocation(world.player, f"Level {i}", (first_level + i) - 2, level_region))
 
     # Create the tools, minus the rods
     tools_not_create: list[str] = ["Fire Rod", "Meteor Rod", "Thunder Rod", "Storm Rod", "Ice Rod",
@@ -90,5 +98,5 @@ def create_locations(world: "ForagerWorld"):
             if loc_name in tools_not_create:
                 continue
 
-            world.get_region(str(loc_data["region"])).locations.append(Location(
-                world.player, loc_name, loc_data["id"]))
+            loc_region: Region = world.get_region(str(loc_data["region"]))
+            loc_region.locations.append(ForagerLocation(world.player, loc_name, loc_data["id"], loc_region))
