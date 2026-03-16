@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from BaseClasses import Entrance, CollectionState
+from BaseClasses import Entrance, CollectionState, Location
 
 from .forager_regions import ForagerRegionData, region_access
 from worlds.generic.Rules import add_rule
@@ -29,6 +29,21 @@ def create_region_access_rules(world: "ForagerWorld"):
 
 
 def create_location_access_rules(world: "ForagerWorld"):
+    # Create the tools, minus the rods
+    tools_not_create: list[str] = ["Fire Rod", "Meteor Rod", "Thunder Rod", "Storm Rod", "Ice Rod",
+        "Blizzard Rod", "Necro Rod", "Death Rod"]
+    for tool_name, tool_data in world.json_tables["locations"].items():
+        if tool_name in tools_not_create or not list(tool_data["required_items"]):
+            continue
+
+        tool_loc: Location = world.get_location(tool_name)
+        for item_req in list(tool_data["required_items"]):
+            if "Leather" in item_req:
+                add_rule(tool_loc, (lambda state: can_make_leather(state, world.player)))
+            elif "Plastic" in item_req:
+                add_rule(tool_loc, (lambda state: can_make_plastic(state, world.player)))
+            else:
+                add_rule(tool_loc, (lambda state, loc_item=item_req: state.has(loc_item, world.player)))
 
 
 def can_make_leather(state : CollectionState, player : int):
@@ -49,3 +64,6 @@ def can_make_void_steel(state: CollectionState, player: int):
 
 def can_make_cosmic_steel(state: CollectionState, player: int):
     return can_reach_void(state, player) and state.has("Astrology", player)
+
+def can_make_nuclear(state: CollectionState, player: int):
+    return can_make_royal(state, player) and state.has("Physics", player)
