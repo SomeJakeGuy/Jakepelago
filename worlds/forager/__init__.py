@@ -2,9 +2,9 @@ from typing import ClassVar
 
 from worlds.AutoWorld import World
 from worlds.LauncherComponents import Component, components, icon_paths, launch as launch_component, Type
-from BaseClasses import ItemClassification as IClass, Item
 
 from .forager_constants import GAME_NAME, CLIENT_NAME
+from .forager_items import create_world_items
 from .forager_rules import create_region_access_rules
 from .forager_webworld import ForagerWebWorld
 from .helper_functions import load_tables, load_json_tables
@@ -62,26 +62,10 @@ class ForagerWorld(World):
 
     def create_items(self):
         """Creates the various items required based on the user's options"""
-        item_pool: list[Item] = []
+        create_world_items(self)
 
-        for prog_name, prog_category in self.item_class_sets["Progression"].items():
-            json_data: dict = self.json_tables["items"][prog_category][prog_name]
-            if json_data.get("count", ""):
-                for tool_count in range(json_data["count"]):
-                    item_pool.append(Item(prog_name, IClass.progression, json_data["id"], self.player))
-            else:
-                item_pool.append(Item(prog_name, IClass.progression, json_data["id"], self.player))
-
-        # Calculate the number of progression items required vs the number of unfilled locations left.
-        # Create that many of useful/filler items remaining.
-        locations_left_to_fill: int = len(self.multiworld.get_unfilled_locations(self.player)) - len(item_pool)
-        for loc_to_fill in range(locations_left_to_fill):
-            # Pick a random filler item and add that to the item pool
-            random_filler: str = self.random.choice(list(self.json_tables["items"]["Misc"].keys()))
-            item_pool.append(Item(random_filler, IClass.filler,
-                self.json_tables["items"]["Misc"][random_filler], self.player))
-
-        self.multiworld.itempool += item_pool
+    def generate_basic(self) -> None:
+        print("")
 
 
     def create_item(self, name):
