@@ -27,6 +27,10 @@ def create_region_access_rules(world: "ForagerWorld"):
     for region_name, region_data in region_access.items():
         interpret_region_access(world, region_name, region_data)
 
+
+def create_location_access_rules(world: "ForagerWorld"):
+
+
 def can_make_leather(state : CollectionState, player : int):
     return state.has_all(("Foraging","Sewing"), player)
 
@@ -42,3 +46,6 @@ def can_reach_void(state : CollectionState, player : int):
 
 def can_make_void_steel(state: CollectionState, player: int):
     return can_reach_void(state,player) and state.has_all(("Transmutation", "Spirituality"), player)
+
+def can_make_cosmic_steel(state: CollectionState, player: int):
+    return can_reach_void(state, player) and state.has("Astrology", player)
