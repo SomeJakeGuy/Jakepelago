@@ -83,7 +83,7 @@ def create_locations(world: "ForagerWorld"):
     tools_not_create: list[str] = ["Fire Rod", "Meteor Rod", "Thunder Rod", "Storm Rod", "Ice Rod",
         "Blizzard Rod", "Necro Rod", "Death Rod"]
     for loc_group, loc_list in world.json_tables["locations"].items():
-        if loc_group == "Levels" or loc_group == "Bundles":
+        if loc_group == "Level" or loc_group == "Bundles":
             continue
 
         for loc_name, loc_data in loc_list.items():
