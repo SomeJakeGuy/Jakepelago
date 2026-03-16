@@ -27,16 +27,18 @@ def create_region_access_rules(world: "ForagerWorld"):
     for region_name, region_data in region_access.items():
         interpret_region_access(world, region_name, region_data)
 
-
 def can_make_leather(state : CollectionState, player : int):
     return state.has_all(("Foraging","Sewing"), player)
 
+def can_make_royal(state : CollectionState, player : int):
+    return can_make_leather(state, player) and state.has("Craftmanship", player)
+
 def can_make_plastic(state : CollectionState, player : int):
-    return can_make_leather(state,player) and state.has_all(("Drilling", "Manufacturing"), player)
+    return can_make_leather(state,player) and can_make_royal(state, player) and state.has_all(("Drilling", "Manufacturing"), player)
 
 def can_reach_void(state : CollectionState, player : int):
     #TODO : Star Fragments not considered rn
     return can_make_plastic(state,player) and state.has("Summoning", player)
 
 def can_make_void_steel(state: CollectionState, player: int):
-    return state.has_all(("Transmutation", "Spirituality"), player) and can_reach_void(state,player)
+    return can_reach_void(state,player) and state.has_all(("Transmutation", "Spirituality"), player)
