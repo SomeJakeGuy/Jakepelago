@@ -31,7 +31,7 @@ def can_make_leather(state : CollectionState, player : int):
     return state.has_all(("Foraging","Sewing"), player)
 
 def can_make_royal(state : CollectionState, player : int):
-    return can_make_leather(state, player) and state.has("Craftmanship", player)
+    return can_make_leather(state, player) and state.has_all(("Craftmanship", "Prospecting"), player)
 
 def can_make_plastic(state : CollectionState, player : int):
     return can_make_leather(state,player) and can_make_royal(state, player) and state.has_all(("Drilling", "Manufacturing"), player)
