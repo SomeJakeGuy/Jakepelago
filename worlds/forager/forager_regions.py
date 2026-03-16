@@ -40,6 +40,12 @@ region_access: dict[str, ForagerRegionData] = {
     "Cosmic Steel": ForagerRegionData("Void Steel", ["Astrology"]),
     "Nuclear": ForagerRegionData("Void Steel", ["Physics"]),
 
+    "Grass": ForagerRegionData("Menu"),
+    "Desert": ForagerRegionData("Grass"),
+    "Winter": ForagerRegionData("Desert"),
+    "Graveyard": ForagerRegionData("Winter"),
+    "Fire": ForagerRegionData("Graveyard"),
+
     str(LevelGroups.FirstGroup.name): ForagerRegionData("Menu"),
     str(LevelGroups.SecondGroup.name): ForagerRegionData(str(LevelGroups.FirstGroup.name), ["Industry"]),
     str(LevelGroups.ThirdGroup.name): ForagerRegionData(str(LevelGroups.SecondGroup.name)),

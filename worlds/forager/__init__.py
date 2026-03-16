@@ -54,7 +54,7 @@ class ForagerWorld(World):
         create_locations(self)
 
 
-    def create_rules(self):
+    def set_rules(self):
         """Attach the various rules for both locations and regions"""
         # TODO make location rules as well.
         create_region_access_rules(self)
