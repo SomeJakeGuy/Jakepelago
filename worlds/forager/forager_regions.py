@@ -49,7 +49,7 @@ def load_regions(world: "ForagerWorld"):
 
     if world.options.game_mode.value == world.options.game_mode.option_default:
         for lvl_enum in LevelGroups:
-            world.multiworld.regions.append(Region(str(lvl_enum.name), world.player, world.multiworld))
+            world.multiworld.regions.append(Region(str(lvl_enum), world.player, world.multiworld))
             # TODO Formulas to calculate xp per region to follow in rules.py
             pass
 
@@ -59,22 +59,22 @@ def create_locations(world: "ForagerWorld"):
     first_level: int = world.json_tables["locations"]["Level"]["first_id"]
     last_level: int = world.json_tables["locations"]["Level"]["last_id"]
     for i in range(2, last_level - first_level + 2):
-        group_to_use: str = str(LevelGroups.FirstGroup.name)
+        group_to_use: str = str(LevelGroups.FirstGroup)
         match i:
             case i if 5 < i <= 10:
-                group_to_use: str = str(LevelGroups.SecondGroup.name)
+                group_to_use: str = str(LevelGroups.SecondGroup)
             case i if 10 < i <= 20:
-                group_to_use: str = str(LevelGroups.SecondGroup.name)
+                group_to_use: str = str(LevelGroups.SecondGroup)
             case i if 20 < i <= 30:
-                group_to_use: str = str(LevelGroups.FourthGroup.name)
+                group_to_use: str = str(LevelGroups.FourthGroup)
             case i if 30 < i <= 40:
-                group_to_use: str = str(LevelGroups.FifthGroup.name)
+                group_to_use: str = str(LevelGroups.FifthGroup)
             case i if 40 < i <= 50:
-                group_to_use: str = str(LevelGroups.SixthGroup.name)
+                group_to_use: str = str(LevelGroups.SixthGroup)
             case i if 50 < i <= 60:
-                group_to_use: str = str(LevelGroups.SeventhGroup.name)
+                group_to_use: str = str(LevelGroups.SeventhGroup)
             case i if 60 < i <= 65:
-                group_to_use: str = str(LevelGroups.EighthGroup.name)
+                group_to_use: str = str(LevelGroups.EighthGroup)
 
         world.get_region(group_to_use).locations.append(
             Location(world.player, f"Level {i}", (first_level + i) - 2))
