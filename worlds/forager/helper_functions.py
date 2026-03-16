@@ -41,7 +41,7 @@ def load_tables(item_json: dict, location_json: dict) -> tuple:
                 location_categories[category_name].add(f"Level {i}")
         else:
             for location, loc_id in category.items():
-                location_name_to_id[location] = loc_id
+                location_name_to_id[location] = loc_id["id"]
                 location_categories[category_name].add(location)
 
     return item_name_to_id, item_categories, item_class_sets, location_name_to_id, location_categories
