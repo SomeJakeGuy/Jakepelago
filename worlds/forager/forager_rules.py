@@ -29,6 +29,9 @@ def create_region_access_rules(world: "ForagerWorld"):
 
 
 def create_location_access_rules(world: "ForagerWorld"):
+    # Create the victory condition
+    world.multiworld.completion_condition[world.player] = lambda state: state.has("Victory", world.player)
+
     # Create the tools, minus the rods
     tools_not_create: list[str] = ["Fire Rod", "Meteor Rod", "Thunder Rod", "Storm Rod", "Ice Rod",
         "Blizzard Rod", "Necro Rod", "Death Rod"]
