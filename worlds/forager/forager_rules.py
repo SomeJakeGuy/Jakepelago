@@ -1,8 +1,9 @@
+from types import MappingProxyType
 from typing import TYPE_CHECKING
 
 from BaseClasses import Entrance, CollectionState, Location
 
-from .forager_regions import ForagerRegionData, region_access
+from .forager_regions import ForagerRegionData, region_access, LevelGroups
 from worlds.generic.Rules import add_rule
 
 if TYPE_CHECKING:
@@ -47,6 +48,49 @@ def create_location_access_rules(world: "ForagerWorld"):
                 add_rule(tool_loc, (lambda state: can_make_plastic(state, world.player)))
             else:
                 add_rule(tool_loc, (lambda state, loc_item=item_req: state.has(loc_item, world.player)))
+
+    # Create logic rules to lock the Levels behind
+    for lvl_group in LevelGroups:
+        if len(world.get_region(str(lvl_group)).entrances) > 0:
+            for reg_entrace in world.get_region(str(lvl_group)).entrances:
+                match lvl_group:
+                    case LevelGroups.SecondGroup:
+                        add_rule(reg_entrace, lambda state: state.has("Industry") and can_make_leather(state, world.player))
+                        continue
+
+                    case LevelGroups.ThirdGroup:
+                        add_rule(reg_entrace, lambda state, prog_pick=MappingProxyType({"Progressive Pickaxe": 2}):
+                            state.has_all_counts(prog_pick, world.player) and can_make_royal(state, world.player))
+                        continue
+
+                    case LevelGroups.FourthGroup:
+                        add_rule(reg_entrace, lambda state, prog_pick=MappingProxyType({"Progressive Pickaxe": 3}):
+                            state.has_all_counts(prog_pick, world.player) and can_make_royal(state, world.player) and
+                            state.has("Magic", world.player))
+                        continue
+
+                    case LevelGroups.FifthGroup:
+                        add_rule(reg_entrace, lambda state, prog_pick=MappingProxyType({"Progressive Pickaxe": 4}):
+                            state.has_all_counts(prog_pick, world.player) and can_reach_void(state, world.player))
+                        continue
+
+                    case LevelGroups.SixthGroup:
+                        add_rule(reg_entrace, lambda state, prog_pick=MappingProxyType({"Progressive Pickaxe": 5}):
+                            state.has_all_counts(prog_pick, world.player) and can_reach_void(state, world.player))
+                        continue
+
+                    case LevelGroups.SeventhGroup:
+                        add_rule(reg_entrace, lambda state, prog_pick=MappingProxyType({"Progressive Pickaxe": 6}):
+                            state.has_all_counts(prog_pick, world.player) and can_make_void_steel(state, world.player))
+                        continue
+
+                    case LevelGroups.EighthGroup:
+                        add_rule(reg_entrace, lambda state, prog_pick=MappingProxyType({"Progressive Pickaxe": 7}):
+                            state.has_all_counts(prog_pick, world.player) and can_make_nuclear(state, world.player))
+                        continue
+
+                    case _:
+                        continue
 
 
 def can_make_leather(state : CollectionState, player : int):
