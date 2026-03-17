@@ -56,12 +56,14 @@ def create_location_access_rules(world: "ForagerWorld"):
                 match lvl_group:
                     case LevelGroups.SecondGroup: # Levels 6-10
                         add_rule(reg_entrace, lambda state: state.has("Industry", world.player) and
+                            state.has("Cooking", world.player) and state.has("Geology", world.player) and
                             can_make_leather(state, world.player))
                         continue
 
                     case LevelGroups.ThirdGroup: # Levels 11-20
                         add_rule(reg_entrace, lambda state, prog_pick=MappingProxyType({"Progressive Pickaxe": 2}):
-                            state.has_all_counts(prog_pick, world.player) and can_make_royal(state, world.player))
+                            state.has_all_counts(prog_pick, world.player) and can_make_royal(state, world.player) and
+                            state.has("Deposit", world.player))
                         continue
 
                     case LevelGroups.FourthGroup: # Levels 21-30
@@ -99,7 +101,7 @@ def create_location_access_rules(world: "ForagerWorld"):
 
 
 def can_make_leather(state : CollectionState, player : int):
-    return state.has_all(("Foraging","Sewing"), player)
+    return state.has_all(("Foraging","Sewing","Combat"), player)
 
 def can_make_royal(state : CollectionState, player : int):
     return can_make_leather(state, player) and state.has_all(("Craftmanship", "Prospecting"), player)
