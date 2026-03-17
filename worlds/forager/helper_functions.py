@@ -11,7 +11,8 @@ def load_json_tables() -> dict:
     data_folder: Traversable = resources.files(__name__).joinpath("data")
 
     for file_path in data_folder.iterdir():
-        if file_path.is_file() and file_path.name.lower().endswith('.json'):
+        if (file_path.is_file() and file_path.name.lower().endswith('.json') and
+            not file_path.name.lower().startswith("backup_")):
             data[file_path.name.replace(".json", "")] = json.loads(file_path.read_text('utf-8'))
     return data
 
