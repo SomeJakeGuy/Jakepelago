@@ -54,39 +54,43 @@ def create_location_access_rules(world: "ForagerWorld"):
         if len(world.get_region(str(lvl_group)).entrances) > 0:
             for reg_entrace in world.get_region(str(lvl_group)).entrances:
                 match lvl_group:
-                    case LevelGroups.SecondGroup:
+                    case LevelGroups.SecondGroup: # Levels 6-10
                         add_rule(reg_entrace, lambda state: state.has("Industry") and can_make_leather(state, world.player))
                         continue
 
-                    case LevelGroups.ThirdGroup:
+                    case LevelGroups.ThirdGroup: # Levels 11-20
                         add_rule(reg_entrace, lambda state, prog_pick=MappingProxyType({"Progressive Pickaxe": 2}):
                             state.has_all_counts(prog_pick, world.player) and can_make_royal(state, world.player))
                         continue
 
-                    case LevelGroups.FourthGroup:
+                    case LevelGroups.FourthGroup: # Levels 21-30
                         add_rule(reg_entrace, lambda state, prog_pick=MappingProxyType({"Progressive Pickaxe": 3}):
                             state.has_all_counts(prog_pick, world.player) and can_make_royal(state, world.player) and
                             state.has("Magic", world.player))
                         continue
 
-                    case LevelGroups.FifthGroup:
-                        add_rule(reg_entrace, lambda state, prog_pick=MappingProxyType({"Progressive Pickaxe": 4}):
-                            state.has_all_counts(prog_pick, world.player) and can_reach_void(state, world.player))
+                    case LevelGroups.FifthGroup: # Levels 31-40
+                        add_rule(reg_entrace, lambda state, req_items=MappingProxyType({"Progressive Pickaxe": 4,
+                            "Progressive Book": 2}): state.has_all_counts(req_items, world.player) and
+                            can_reach_void(state, world.player) and state.has("Capitalism", world.player))
                         continue
 
-                    case LevelGroups.SixthGroup:
-                        add_rule(reg_entrace, lambda state, prog_pick=MappingProxyType({"Progressive Pickaxe": 5}):
-                            state.has_all_counts(prog_pick, world.player) and can_reach_void(state, world.player))
+                    case LevelGroups.SixthGroup: # Levels 41-50
+                        add_rule(reg_entrace, lambda state, req_items=MappingProxyType({"Progressive Pickaxe": 5,
+                            "Progressive Book": 4}): state.has_all_counts(req_items, world.player) and
+                            can_make_void_steel(state, world.player))
                         continue
 
-                    case LevelGroups.SeventhGroup:
-                        add_rule(reg_entrace, lambda state, prog_pick=MappingProxyType({"Progressive Pickaxe": 6}):
-                            state.has_all_counts(prog_pick, world.player) and can_make_void_steel(state, world.player))
+                    case LevelGroups.SeventhGroup: # Levels 51-60
+                        add_rule(reg_entrace, lambda state, req_items=MappingProxyType({"Progressive Pickaxe": 6,
+                            "Progressive Book": 6}): state.has_all_counts(req_items, world.player) and
+                            can_make_cosmic_steel(state, world.player))
                         continue
 
-                    case LevelGroups.EighthGroup:
-                        add_rule(reg_entrace, lambda state, prog_pick=MappingProxyType({"Progressive Pickaxe": 7}):
-                            state.has_all_counts(prog_pick, world.player) and can_make_nuclear(state, world.player))
+                    case LevelGroups.EighthGroup: # Levels 61-65
+                        add_rule(reg_entrace, lambda state, req_items=MappingProxyType({"Progressive Pickaxe": 7,
+                            "Progressive Book": 8}): state.has_all_counts(req_items, world.player) and
+                            can_make_nuclear(state, world.player))
                         continue
 
                     case _:
@@ -107,7 +111,8 @@ def can_reach_void(state : CollectionState, player : int):
     return can_make_plastic(state,player) and state.has("Summoning", player)
 
 def can_make_void_steel(state: CollectionState, player: int):
-    return can_reach_void(state,player) and state.has_all(("Transmutation", "Spirituality"), player)
+    return can_reach_void(state,player) and state.has_all(("Transmutation", "Spirituality"), player) and (
+        state.has("Progressive Sword", player, 6))
 
 def can_make_cosmic_steel(state: CollectionState, player: int):
     return can_reach_void(state, player) and state.has("Astrology", player)
