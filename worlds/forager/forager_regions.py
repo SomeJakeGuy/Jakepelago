@@ -4,6 +4,8 @@ from typing import TYPE_CHECKING, NamedTuple, Optional
 from BaseClasses import Region, Location
 
 from .forager_constants import GAME_NAME
+from .forager_items import ForagerItem
+
 if TYPE_CHECKING:
     from worlds.forager import ForagerWorld
 
@@ -74,8 +76,7 @@ def load_regions(world: "ForagerWorld"):
 def create_locations(world: "ForagerWorld"):
     # Create all levels first.
     first_level: int = world.json_tables["locations"]["Level"]["first_id"]
-    last_level: int = world.json_tables["locations"]["Level"]["last_id"]
-    for i in range(2, last_level - first_level + 2):
+    for i in range(2, world.required_level_count + 1):
         group_to_use: str = str(LevelGroups.FirstGroup)
         match i:
             case i if 5 < i <= 10:
@@ -94,7 +95,11 @@ def create_locations(world: "ForagerWorld"):
                 group_to_use: str = str(LevelGroups.EighthGroup)
 
         level_region: Region = world.get_region(group_to_use)
-        level_region.locations.append(ForagerLocation(world.player, f"Level {i}", (first_level + i) - 2, level_region))
+        if i == world.required_level_count:
+            level_region.add_event(f"Level {i}", "Victory", location_type=ForagerLocation, item_type=ForagerItem)
+            break
+        else:
+            level_region.locations.append(ForagerLocation(world.player, f"Level {i}", (first_level + i) - 2, level_region))
 
     # Create the tools, minus the rods
     tools_not_create: list[str] = ["Fire Rod", "Meteor Rod", "Thunder Rod", "Storm Rod", "Ice Rod",
