@@ -16,7 +16,8 @@ class ForagerItem(Item):
 def create_world_items(world: "ForagerWorld"):
     item_pool: list[Item] = []
 
-    for prog_name, prog_category in world.item_class_sets["Progression"].items():
+    items_to_create: dict = {**dict(world.item_class_sets["Progression"]), **dict(world.item_class_sets["Useful"].items())}
+    for prog_name, prog_category in items_to_create.items():
         if prog_category in ["Seals", "Relics"]:
             continue
 
