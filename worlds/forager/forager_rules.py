@@ -36,7 +36,7 @@ def create_location_access_rules(world: "ForagerWorld"):
     # Create the tools, minus the rods
     tools_not_create: list[str] = ["Fire Rod", "Meteor Rod", "Thunder Rod", "Storm Rod", "Ice Rod",
         "Blizzard Rod", "Necro Rod", "Death Rod"]
-    for tool_name, tool_data in world.json_tables["locations"].items():
+    for tool_name, tool_data in world.json_tables["locations"]["Tools"].items():
         if tool_name in tools_not_create or not list(tool_data["required_items"]):
             continue
 
@@ -55,7 +55,8 @@ def create_location_access_rules(world: "ForagerWorld"):
             for reg_entrace in world.get_region(str(lvl_group)).entrances:
                 match lvl_group:
                     case LevelGroups.SecondGroup: # Levels 6-10
-                        add_rule(reg_entrace, lambda state: state.has("Industry") and can_make_leather(state, world.player))
+                        add_rule(reg_entrace, lambda state: state.has("Industry", world.player) and
+                            can_make_leather(state, world.player))
                         continue
 
                     case LevelGroups.ThirdGroup: # Levels 11-20
