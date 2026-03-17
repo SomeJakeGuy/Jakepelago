@@ -61,7 +61,6 @@
         "Void Guide": {"id": 276, "region": "Void Steel", "required_items": []},
         "Magnum Opus": {"id": 277, "region": "Cosmic Steel", "required_items": []},
         "Nuclear Codex": {"id": 278, "region": "Nuclear", "required_items": []},
-        "Basic Backpack": {"id": 281, "region": "Grass", "required_items": []},
         "Small Backpack": {"id": 282, "region": "Grass", "required_items": ["Sewing"]},
         "Medium Backpack": {"id": 283, "region": "Grass", "required_items": ["Leather"]},
         "Big Backpack": {"id": 284, "region": "Royal Steel", "required_items": []},
