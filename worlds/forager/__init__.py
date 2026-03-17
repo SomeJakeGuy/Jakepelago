@@ -5,7 +5,7 @@ from worlds.LauncherComponents import Component, components, icon_paths, launch 
 
 from .forager_constants import GAME_NAME, CLIENT_NAME
 from .forager_items import create_world_items
-from .forager_rules import create_region_access_rules
+from .forager_rules import create_region_access_rules, create_location_access_rules
 from .forager_webworld import ForagerWebWorld
 from .helper_functions import load_tables, load_json_tables
 from .forager_regions import load_regions, create_locations
@@ -58,14 +58,12 @@ class ForagerWorld(World):
         """Attach the various rules for both locations and regions"""
         # TODO make location rules as well.
         create_region_access_rules(self)
+        create_location_access_rules(self)
 
 
     def create_items(self):
         """Creates the various items required based on the user's options"""
         create_world_items(self)
-
-    def generate_basic(self) -> None:
-        print("")
 
 
     def create_item(self, name):
