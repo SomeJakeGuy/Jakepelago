@@ -17,6 +17,9 @@ def create_world_items(world: "ForagerWorld"):
     item_pool: list[Item] = []
 
     for prog_name, prog_category in world.item_class_sets["Progression"].items():
+        if prog_category in ["Seals", "Relics"]:
+            continue
+
         json_data: dict = world.json_tables["items"][prog_category][prog_name]
         if json_data.get("count", ""):
             for tool_count in range(json_data["count"]):
