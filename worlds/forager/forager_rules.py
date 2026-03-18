@@ -108,7 +108,7 @@ def can_make_royal_steel(state : CollectionState, player : int):
     return state.has_all(["Industry", "Craftmanship", "Prospecting"], player)
 
 def can_make_plastic(state : CollectionState, player : int):
-    return can_make_royal_steel(state, player) and state.has_all(["Drilling", "Manufacturing"], player)
+    return can_make_royal_clothing(state, player) and state.has_all(["Drilling", "Manufacturing"], player)
 
 def can_reach_void(state : CollectionState, player : int):
     #TODO : Star Fragments not considered rn
