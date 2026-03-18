@@ -43,8 +43,8 @@ region_access: dict[str, ForagerRegionData] = {
     "Nuclear": ForagerRegionData("Void Steel", ["Physics"]),
 
     "Grass": ForagerRegionData("Menu"),
-    "Desert": ForagerRegionData("Grass", ["Combat", "Industry"]),
-    "Winter": ForagerRegionData("Desert", ["Deposit", "Geology"]),
+    "Desert": ForagerRegionData("Grass",),
+    "Winter": ForagerRegionData("Desert"),
     "Graveyard": ForagerRegionData("Winter"),
     "Fire": ForagerRegionData("Graveyard"),
 
