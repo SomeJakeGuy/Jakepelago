@@ -16,8 +16,8 @@ class ForagerItem(Item):
 def create_world_items(world: "ForagerWorld"):
     item_pool: list[Item] = []
 
-    items_to_create: dict = {**dict(world.item_class_sets["Progression"]), **dict(world.item_class_sets["Useful"].items())}
-    for prog_name, prog_category in items_to_create.items():
+    # Create the required amount of Progression Items
+    for prog_name, prog_category in world.item_class_sets["Progression"].items():
         if prog_category in ["Seals", "Relics"]:
             continue
 
@@ -27,6 +27,18 @@ def create_world_items(world: "ForagerWorld"):
                 item_pool.append(ForagerItem(prog_name, IC.progression, json_data["id"], world.player))
         else:
             item_pool.append(ForagerItem(prog_name, IC.progression, json_data["id"], world.player))
+
+    # Create the extra useful items that the player can use, such as QOL skills.
+    for prog_name, prog_category in world.item_class_sets["Useful"].items():
+        if prog_category in ["Seals", "Relics"]:
+            continue
+
+        json_data: dict = world.json_tables["items"][prog_category][prog_name]
+        if json_data.get("count", ""):
+            for tool_count in range(json_data["count"]):
+                item_pool.append(ForagerItem(prog_name, IC.useful, json_data["id"], world.player))
+        else:
+            item_pool.append(ForagerItem(prog_name, IC.useful, json_data["id"], world.player))
 
     # Calculate the number of progression items required vs the number of unfilled locations left.
     # Create that many of useful/filler items remaining.
