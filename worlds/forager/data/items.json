@@ -90,7 +90,7 @@
     "Ballistics": { "id": 337, "classification": "Useful" },
     "Pet": { "id": 338, "classification": "Filler" },
     "Mining": { "id": 339, "classification": "Progression" },
-    "Cooking": { "id": 340, "classification": "Progression" },
+    "Cooking": { "id": 340, "classification": "Useful" },
     "Looting": { "id": 341, "classification": "Progression" },
     "Geology": { "id": 342, "classification": "Progression" },
     "Calciverous": { "id": 343, "classification": "Filler" },

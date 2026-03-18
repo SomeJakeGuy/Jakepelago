@@ -56,8 +56,7 @@ def create_location_access_rules(world: "ForagerWorld"):
                 match lvl_group:
                     case LevelGroups.SecondGroup: # Levels 6-10
                         add_rule(reg_entrace, lambda state: state.has("Industry", world.player) and
-                            state.has("Cooking", world.player) and state.has("Geology", world.player) and
-                            can_make_leather(state, world.player))
+                            state.has("Geology", world.player) and can_make_leather(state, world.player))
                         continue
 
                     case LevelGroups.ThirdGroup: # Levels 11-20
