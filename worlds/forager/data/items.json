@@ -92,7 +92,7 @@
     "Mining": { "id": 339, "classification": "Progression" },
     "Cooking": { "id": 340, "classification": "Useful" },
     "Looting": { "id": 341, "classification": "Progression" },
-    "Geology": { "id": 342, "classification": "Progression" },
+    "Geology": { "id": 342, "classification": "Useful" },
     "Calciverous": { "id": 343, "classification": "Filler" },
     "Gluttony": { "id": 344, "classification": "Useful" },
     "Prospecting": { "id": 345, "classification": "Progression" },

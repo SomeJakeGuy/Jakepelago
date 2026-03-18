@@ -36,7 +36,7 @@ class ForagerLocation(Location):
 # Defines the region and any access related requirements
 region_access: dict[str, ForagerRegionData] = {
     "Steel": ForagerRegionData("Menu", ["Industry"]),
-    "Royal Steel": ForagerRegionData("Steel", ["Craftmanship","Prospecting", "Deposit", "Geology"]),
+    "Royal Steel": ForagerRegionData("Steel", ["Craftmanship","Prospecting", "Deposit"]),
     "Electronics": ForagerRegionData("Royal Steel", ["Manufacturing"]),
     "Void Steel": ForagerRegionData("Electronics", ["Foraging", "Sewing", "Summoning", "Transmutation", "Spirituality"]),
     "Cosmic Steel": ForagerRegionData("Void Steel", ["Astrology"]),
@@ -49,7 +49,7 @@ region_access: dict[str, ForagerRegionData] = {
     "Fire": ForagerRegionData("Graveyard"),
 
     str(LevelGroups.FirstGroup): ForagerRegionData("Menu"),
-    str(LevelGroups.SecondGroup): ForagerRegionData(str(LevelGroups.FirstGroup), ["Industry", "Geology"]),
+    str(LevelGroups.SecondGroup): ForagerRegionData(str(LevelGroups.FirstGroup), ["Industry"]),
     str(LevelGroups.ThirdGroup): ForagerRegionData(str(LevelGroups.SecondGroup), ["Deposit"]),
     str(LevelGroups.FourthGroup): ForagerRegionData(str(LevelGroups.ThirdGroup), ["Magic"]),
     str(LevelGroups.FifthGroup): ForagerRegionData(str(LevelGroups.FourthGroup), ["Capitalism"]),
