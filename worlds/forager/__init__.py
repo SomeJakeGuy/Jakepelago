@@ -1,5 +1,6 @@
 from typing import ClassVar
 
+import Utils
 from worlds.AutoWorld import World
 from worlds.LauncherComponents import Component, components, icon_paths, launch as launch_component, Type
 
@@ -47,6 +48,8 @@ class ForagerWorld(World):
         if self.options.game_mode.value == self.options.game_mode.option_default:
             self.required_level_count = 65
 
+        self.multiworld.early_items[self.player].update({"Industry": 1})
+
 
     def create_regions(self):
         """Loads both the regions and the locations"""
@@ -71,3 +74,12 @@ class ForagerWorld(World):
         pass
         #return ForagerItem(name, IClass.progression, self.item_name_to_id[name],
         #                   self.player)  # Needs to have item classifications done
+
+
+    def generate_basic(self) -> None:
+        print("")
+
+
+    def generate_output(self, output_directory: str) -> None:
+        Utils.visualize_regions(self.get_region("Menu"), "forager.puml", show_entrance_names=True, show_locations=True,
+            show_other_regions=True, detail_other_regions=True)
