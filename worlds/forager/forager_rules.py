@@ -55,26 +55,23 @@ def create_location_access_rules(world: "ForagerWorld"):
             for reg_entrace in world.get_region(str(lvl_group)).entrances:
                 match lvl_group:
                     case LevelGroups.SecondGroup: # Levels 6-10
-                        add_rule(reg_entrace, lambda state: state.has("Industry", world.player) and
-                            state.has("Geology", world.player) and can_make_leather(state, world.player))
+                        add_rule(reg_entrace, lambda state: can_make_leather(state, world.player))
                         continue
 
                     case LevelGroups.ThirdGroup: # Levels 11-20
                         add_rule(reg_entrace, lambda state, prog_pick=MappingProxyType({"Progressive Pickaxe": 2}):
-                            state.has_all_counts(prog_pick, world.player) and can_make_royal(state, world.player) and
-                            state.has("Deposit", world.player))
+                            state.has_all_counts(prog_pick, world.player) and can_make_royal(state, world.player))
                         continue
 
                     case LevelGroups.FourthGroup: # Levels 21-30
                         add_rule(reg_entrace, lambda state, prog_pick=MappingProxyType({"Progressive Pickaxe": 3}):
-                            state.has_all_counts(prog_pick, world.player) and can_make_royal(state, world.player) and
-                            state.has("Magic", world.player))
+                            state.has_all_counts(prog_pick, world.player) and can_make_royal(state, world.player))
                         continue
 
                     case LevelGroups.FifthGroup: # Levels 31-40
                         add_rule(reg_entrace, lambda state, req_items=MappingProxyType({"Progressive Pickaxe": 4,
                             "Progressive Book": 2}): state.has_all_counts(req_items, world.player) and
-                            can_reach_void(state, world.player) and state.has("Capitalism", world.player))
+                            can_reach_void(state, world.player))
                         continue
 
                     case LevelGroups.SixthGroup: # Levels 41-50
