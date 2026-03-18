@@ -45,7 +45,7 @@ def create_world_items(world: "ForagerWorld"):
     locations_left_to_fill: int = len(world.multiworld.get_unfilled_locations(world.player)) - len(item_pool)
     for loc_to_fill in range(locations_left_to_fill):
         # Pick a random filler item and add that to the item pool
-        random_filler: str = world.random.choice(list(world.json_tables["items"]["Misc"].keys()))
+        random_filler: str = world.random.choice(list(world.item_class_sets["Filler"].keys()))
         item_pool.append(ForagerItem(random_filler, IC.filler,
             world.json_tables["items"]["Misc"][random_filler], world.player))
 
