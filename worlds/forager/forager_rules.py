@@ -60,12 +60,14 @@ def create_location_access_rules(world: "ForagerWorld"):
 
                     case LevelGroups.ThirdGroup: # Levels 11-20
                         add_rule(reg_entrace, lambda state, prog_pick=MappingProxyType({"Progressive Pickaxe": 2}):
-                            state.has_all_counts(prog_pick, world.player) and can_make_royal(state, world.player))
+                            state.has_all_counts(prog_pick, world.player) and (can_make_royal_steel(state, world.player)
+                                or can_make_royal_clothing(state, world.player)))
                         continue
 
                     case LevelGroups.FourthGroup: # Levels 21-30
                         add_rule(reg_entrace, lambda state, prog_pick=MappingProxyType({"Progressive Pickaxe": 3}):
-                            state.has_all_counts(prog_pick, world.player) and can_make_royal(state, world.player))
+                            state.has_all_counts(prog_pick, world.player) and (can_make_royal_steel(state, world.player)
+                                or can_make_royal_clothing(state, world.player)))
                         continue
 
                     case LevelGroups.FifthGroup: # Levels 31-40
@@ -97,24 +99,27 @@ def create_location_access_rules(world: "ForagerWorld"):
 
 
 def can_make_leather(state : CollectionState, player : int):
-    return state.has_all(("Foraging","Sewing"), player)
+    return state.has_all(["Foraging", "Sewing"], player)
 
-def can_make_royal(state : CollectionState, player : int):
-    return can_make_leather(state, player) and state.has_all(("Craftmanship", "Prospecting"), player)
+def can_make_royal_clothing(state : CollectionState, player : int):
+    return can_make_leather(state, player) and state.has_all(["Craftmanship", "Prospecting"], player)
+
+def can_make_royal_steel(state : CollectionState, player : int):
+    return state.has_all(["Industry", "Craftmanship", "Prospecting"], player)
 
 def can_make_plastic(state : CollectionState, player : int):
-    return can_make_leather(state,player) and can_make_royal(state, player) and state.has_all(("Drilling", "Manufacturing"), player)
+    return can_make_royal_steel(state, player) and state.has_all(["Drilling", "Manufacturing"], player)
 
 def can_reach_void(state : CollectionState, player : int):
     #TODO : Star Fragments not considered rn
     return can_make_plastic(state,player) and state.has_all(["Summoning", "Combat"], player)
 
 def can_make_void_steel(state: CollectionState, player: int):
-    return can_reach_void(state,player) and state.has_all(("Transmutation", "Spirituality"), player) and (
+    return can_reach_void(state,player) and state.has_all(["Transmutation", "Spirituality"], player) and (
         state.has("Progressive Sword", player, 6))
 
 def can_make_cosmic_steel(state: CollectionState, player: int):
     return can_reach_void(state, player) and state.has("Astrology", player)
 
 def can_make_nuclear(state: CollectionState, player: int):
-    return can_make_royal(state, player) and state.has("Physics", player)
+    return can_make_royal_steel(state, player) and state.has("Physics", player)
