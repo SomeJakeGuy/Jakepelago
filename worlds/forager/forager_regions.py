@@ -35,6 +35,7 @@ class ForagerLocation(Location):
 
 # Defines the region and any access related requirements
 region_access: dict[str, ForagerRegionData] = {
+    "Royal Clothing": ForagerRegionData("Menu", ["Foraging", "Sewing", "Craftmanship", "Prospecting"]),
     "Steel": ForagerRegionData("Menu", ["Industry"]),
     "Royal Steel": ForagerRegionData("Steel", ["Craftmanship","Prospecting", "Deposit"]),
     "Electronics": ForagerRegionData("Royal Steel", ["Manufacturing"]),
