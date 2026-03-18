@@ -13,14 +13,14 @@ if TYPE_CHECKING:
 def interpret_region_access(world: "ForagerWorld", region_name: str, region_data: ForagerRegionData):
     """Reads the input Region data class to then determine the various rules to apply to the given region.
     This includes parsing items required, xp, gold, etc."""
-    main_ent: Entrance = world.get_region(region_name).connect(world.get_region(region_data.parent_region))
+    main_ent: Entrance = world.get_region(region_data.parent_region).connect(world.get_region(region_name))
 
     # Make the connection bidirectional so AP can have an easier time to generate.
-    world.get_region(region_data.parent_region).connect(world.get_region(region_name))
+    world.get_region(region_name).connect(world.get_region(region_data.parent_region))
 
     # If the connection requires any items to access
     if region_data.items_required:
-        add_rule(main_ent, lambda state: state.has_all(region_data.items_required))
+        add_rule(main_ent, lambda state: state.has_all(region_data.items_required, world.player))
 
 
 def create_region_access_rules(world: "ForagerWorld"):
