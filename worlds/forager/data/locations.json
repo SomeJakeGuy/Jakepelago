@@ -1,7 +1,7 @@
 {   
     "Tools": { 
-        "Slime Pickaxe": {"id": 202, "region": "Grass", "required_items": []},
-        "Golden Pickaxe": {"id": 203, "region": "Desert", "required_items": []},
+        "Slime Pickaxe": {"id": 202, "region": "Grass", "required_items": ["Industry"]},
+        "Golden Pickaxe": {"id": 203, "region": "Desert", "required_items": ["Industry"]},
         "Skull Pickaxe": {"id": 204, "region": "Steel", "required_items": ["Spirituality"]},
         "Crystal Pickaxe": {"id": 205, "region": "Royal Steel", "required_items": []},
         "Demon Pickaxe": {"id": 206, "region": "Electronics", "required_items": []},
@@ -9,7 +9,7 @@
         "Cosmic Pickaxe": {"id": 208, "region": "Cosmic Steel", "required_items": []},
         "Nuclear Pickaxe": {"id": 209, "region": "Nuclear", "required_items": []},
         "Shovel": {"id": 211, "region": "Grass", "required_items": []},
-        "Water Shovel": {"id": 212, "region": "Graveyard", "required_items": []},
+        "Water Shovel": {"id": 212, "region": "Graveyard", "required_items": ["Industry"]},
         "Nomad's Shovel": {"id": 213, "region": "Steel", "required_items": []},
         "Royal Shovel": {"id": 214, "region": "Royal Steel", "required_items": []},
         "Robotic Shovel": {"id": 215, "region": "Electronics", "required_items": ["Plastic"]},
@@ -62,7 +62,7 @@
         "Magnum Opus": {"id": 277, "region": "Cosmic Steel", "required_items": []},
         "Nuclear Codex": {"id": 278, "region": "Nuclear", "required_items": []},
         "Small Backpack": {"id": 282, "region": "Grass", "required_items": ["Sewing"]},
-        "Medium Backpack": {"id": 283, "region": "Grass", "required_items": ["Leather"]},
+        "Medium Backpack": {"id": 283, "region": "Grass", "required_items": ["Leather", "Industry"]},
         "Big Backpack": {"id": 284, "region": "Royal Steel", "required_items": []},
         "Huge Backpack": {"id": 285, "region": "Royal Steel", "required_items": ["Plastic"]},
         "Tycoon Backpack": {"id": 286, "region": "Royal Steel", "required_items": ["Plastic"]},
