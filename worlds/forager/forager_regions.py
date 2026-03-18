@@ -66,12 +66,8 @@ def load_regions(world: "ForagerWorld"):
     for region_name in region_list:
         world.multiworld.regions.append(Region(region_name, world.player, world.multiworld))
 
-    if world.options.game_mode.value == world.options.game_mode.option_default:
-        for lvl_enum in LevelGroups:
-            world.multiworld.regions.append(Region(str(lvl_enum), world.player, world.multiworld))
-            # TODO Formulas to calculate xp per region to follow in rules.py
-            pass
-
+    for lvl_enum in LevelGroups:
+        world.multiworld.regions.append(Region(str(lvl_enum), world.player, world.multiworld))
 
 def create_locations(world: "ForagerWorld"):
     # Create all levels first.
