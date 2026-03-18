@@ -97,7 +97,7 @@ def create_location_access_rules(world: "ForagerWorld"):
 
 
 def can_make_leather(state : CollectionState, player : int):
-    return state.has_all(("Foraging","Sewing","Combat"), player)
+    return state.has_all(("Foraging","Sewing"), player)
 
 def can_make_royal(state : CollectionState, player : int):
     return can_make_leather(state, player) and state.has_all(("Craftmanship", "Prospecting"), player)
@@ -107,7 +107,7 @@ def can_make_plastic(state : CollectionState, player : int):
 
 def can_reach_void(state : CollectionState, player : int):
     #TODO : Star Fragments not considered rn
-    return can_make_plastic(state,player) and state.has("Summoning", player)
+    return can_make_plastic(state,player) and state.has_all(["Summoning", "Combat"], player)
 
 def can_make_void_steel(state: CollectionState, player: int):
     return can_reach_void(state,player) and state.has_all(("Transmutation", "Spirituality"), player) and (
