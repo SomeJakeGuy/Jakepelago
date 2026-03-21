@@ -7,6 +7,16 @@ if TYPE_CHECKING:
     from worlds.forager import ForagerWorld
 
 
+LEATHER_ITEMS: list[str] =  ["Foraging", "Sewing"]
+ROYAL_CLOTHING_ITEMS: list[str] = LEATHER_ITEMS + ["Craftsmanship", "Prospecting"]
+PLASTIC_ITEMS: list[str] = ROYAL_CLOTHING_ITEMS + ["Drilling", "Manufacturing"]
+ROYAL_STEEL_ITEMS: list[str] = ["Industry", "Craftsmanship", "Prospecting"]
+VOID_ITEMS: list[str] = ROYAL_STEEL_ITEMS + ["Summoning", "Combat"]
+VOID_STEEL_ITEMS: list[str] = VOID_ITEMS + ["Transmutation", "Spirituality"]
+COSMIC_STEEL_ITEMS: list[str] = VOID_ITEMS + ["Astrology"]
+NUCLEAR_ITEMS: list[str] = VOID_ITEMS + ["Physics"]
+
+
 class ForagerItem(Item):
     game: str = GAME_NAME
     

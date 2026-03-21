@@ -4,7 +4,9 @@ from typing import TYPE_CHECKING
 from BaseClasses import Entrance, CollectionState, Location
 
 from .forager_regions import ForagerRegionData, region_access, LevelGroups
-from worlds.generic.Rules import add_rule
+from .forager_items import (LEATHER_ITEMS, ROYAL_CLOTHING_ITEMS, PLASTIC_ITEMS, ROYAL_STEEL_ITEMS,
+    VOID_STEEL_ITEMS, COSMIC_STEEL_ITEMS, NUCLEAR_ITEMS)
+from worlds.generic.Rules import add_rule, add_item_rule
 
 if TYPE_CHECKING:
     from . import ForagerWorld
@@ -101,24 +103,63 @@ def create_location_access_rules(world: "ForagerWorld"):
     # Add rules to the events that ensures you can only logically get the next tier if you have the previous upgrade item.
     for tier_num in range(3, 9):
         tier_loc: Location = world.get_location(f"Tier {tier_num}")
-        add_rule(tier_loc, lambda state: state.has(f"Upgrade {tier_num - 1}", world.player))
+        add_rule(tier_loc, lambda state, num=tier_num-1: state.has(f"Upgrade {num}", world.player))
+
+
+def deny_item_placements(world: "ForagerWorld"):
+    #TODO Currently un-used, leaving just in case, even as a debug.
+    """Update the item rules to avoid placing that would otherwise self-lock.
+    Normally this wouldn't be an issue, except that they are treated like progression unlocks.
+    I.e. Royal Clothing requires everything in that tier, plus the previous tier."""
+    world_loc_names: list[str] = [loc.name for loc in world.get_locations()]
+
+    for loc_group, loc_list in world.json_tables["locations"].items():
+        if loc_group == "Level" or loc_group == "Bundles":
+            continue
+
+        for loc_name, loc_data in loc_list.items():
+            # Skip any locations that were previously not created.
+            if not loc_name in world_loc_names:
+                continue
+
+            curr_loc: Location = world.get_location(loc_name)
+            if "Leather" in list(loc_data["required_items"]):
+                add_item_rule(curr_loc, lambda item: not item.name in LEATHER_ITEMS)
+
+            match str(loc_data["region"]):
+                case "Royal Clothing":
+                    add_item_rule(curr_loc, lambda item: not item.name in ROYAL_CLOTHING_ITEMS)
+                case "Steel":
+                    add_item_rule(curr_loc, lambda item: not item.name in ["Industry"])
+                case "Royal Steel":
+                    add_item_rule(curr_loc, lambda item: not item.name in ROYAL_STEEL_ITEMS)
+                case "Electronics":
+                    add_item_rule(curr_loc, lambda item: not item.name in PLASTIC_ITEMS)
+                case "Void Steel":
+                    add_item_rule(curr_loc, lambda item: not item.name in VOID_STEEL_ITEMS)
+                case "Cosmic Steel":
+                    add_item_rule(curr_loc, lambda item: not item.name in COSMIC_STEEL_ITEMS)
+                case "Nuclear":
+                    add_item_rule(curr_loc, lambda item: not item.name in NUCLEAR_ITEMS)
+                case _:
+                    continue
 
 
 def can_make_leather(state : CollectionState, player : int):
-    return state.has_all(["Foraging", "Sewing"], player)
+    return state.has_all(LEATHER_ITEMS, player)
 
 def can_make_royal_clothing(state : CollectionState, player : int):
-    return can_make_leather(state, player) and state.has_all(["Craftmanship", "Prospecting"], player)
+    return can_make_leather(state, player) and state.has_all(["Craftsmanship", "Prospecting"], player)
 
 def can_make_royal_steel(state : CollectionState, player : int):
-    return state.has_all(["Industry", "Craftmanship", "Prospecting"], player)
+    return state.has_all(["Industry", "Craftsmanship", "Prospecting"], player)
 
 def can_make_plastic(state : CollectionState, player : int):
     return can_make_royal_clothing(state, player) and state.has_all(["Drilling", "Manufacturing"], player)
 
 def can_reach_void(state : CollectionState, player : int):
     #TODO : Star Fragments not considered rn
-    return can_make_plastic(state,player) and state.has_all(["Summoning", "Combat"], player)
+    return can_make_royal_steel(state,player) and state.has_all(["Summoning", "Combat"], player)
 
 def can_make_void_steel(state: CollectionState, player: int):
     return can_reach_void(state,player) and state.has_all(["Transmutation", "Spirituality"], player) and (
@@ -128,4 +169,4 @@ def can_make_cosmic_steel(state: CollectionState, player: int):
     return can_reach_void(state, player) and state.has("Astrology", player)
 
 def can_make_nuclear(state: CollectionState, player: int):
-    return can_make_royal_steel(state, player) and state.has("Physics", player)
+    return can_reach_void(state, player) and state.has("Physics", player)
