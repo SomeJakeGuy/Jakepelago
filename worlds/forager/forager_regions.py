@@ -93,10 +93,12 @@ def create_locations(world: "ForagerWorld"):
 
         level_region: Region = world.get_region(group_to_use)
         if i == world.required_level_count:
-            level_region.add_event(f"Level {i}", "Victory", location_type=ForagerLocation, item_type=ForagerItem)
+            level_region.add_event(f"Level {i}", "Victory",
+                location_type=ForagerLocation, item_type=ForagerItem)
             break
         else:
-            level_region.locations.append(ForagerLocation(world.player, f"Level {i}", (first_level + i) - 2, level_region))
+            level_region.locations.append(ForagerLocation(world.player, f"Level {i}",
+                (first_level + i) - 2, level_region))
 
     # Create the tools, minus the rods
     tools_not_create: list[str] = ["Fire Rod", "Meteor Rod", "Thunder Rod", "Storm Rod", "Ice Rod",
@@ -111,3 +113,9 @@ def create_locations(world: "ForagerWorld"):
 
             loc_region: Region = world.get_region(str(loc_data["region"]))
             loc_region.locations.append(ForagerLocation(world.player, loc_name, loc_data["id"], loc_region))
+
+    # Create some event items for ensuring logic handles upgrade items in order.
+    grass_reg: Region = world.get_region("Grass")
+    for tier_num in range(2, 9):
+        grass_reg.add_event(f"Tier {tier_num}", f"Upgrade {tier_num}",
+            location_type=ForagerLocation, item_type=ForagerItem)

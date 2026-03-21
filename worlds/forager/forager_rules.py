@@ -98,6 +98,12 @@ def create_location_access_rules(world: "ForagerWorld"):
                         continue
 
 
+    # Add rules to the events that ensures you can only logically get the next tier if you have the previous upgrade item.
+    for tier_num in range(3, 9):
+        tier_loc: Location = world.get_location(f"Tier {tier_num}")
+        add_rule(tier_loc, lambda state: state.has(f"Upgrade {tier_num - 1}", world.player))
+
+
 def can_make_leather(state : CollectionState, player : int):
     return state.has_all(["Foraging", "Sewing"], player)
 
