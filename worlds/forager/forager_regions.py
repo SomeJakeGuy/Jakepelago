@@ -39,7 +39,7 @@ region_access: dict[str, ForagerRegionData] = {
     "Steel": ForagerRegionData("Menu", ["Industry"]),
     "Royal Steel": ForagerRegionData("Steel", ["Craftmanship","Prospecting", "Deposit"]),
     "Electronics": ForagerRegionData("Royal Steel", ["Manufacturing"]),
-    "Void Steel": ForagerRegionData("Electronics", ["Foraging", "Sewing", "Summoning", "Transmutation", "Spirituality"]),
+    "Void Steel": ForagerRegionData("Electronics", ["Transmutation", "Spirituality"]),
     "Cosmic Steel": ForagerRegionData("Void Steel", ["Astrology"]),
     "Nuclear": ForagerRegionData("Void Steel", ["Physics"]),
 
