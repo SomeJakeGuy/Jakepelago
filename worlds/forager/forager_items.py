@@ -3,11 +3,11 @@ from typing import TYPE_CHECKING
 from BaseClasses import Item, ItemClassification as IC
 
 from .forager_constants import GAME_NAME
+
 if TYPE_CHECKING:
     from worlds.forager import ForagerWorld
 
-
-LEATHER_ITEMS: list[str] =  ["Foraging", "Sewing"]
+LEATHER_ITEMS: list[str] = ["Foraging", "Sewing"]
 ROYAL_CLOTHING_ITEMS: list[str] = LEATHER_ITEMS + ["Craftsmanship", "Prospecting"]
 PLASTIC_ITEMS: list[str] = ROYAL_CLOTHING_ITEMS + ["Drilling", "Manufacturing"]
 ROYAL_STEEL_ITEMS: list[str] = ["Industry", "Craftsmanship", "Prospecting"]
@@ -19,10 +19,11 @@ NUCLEAR_ITEMS: list[str] = VOID_ITEMS + ["Physics"]
 
 class ForagerItem(Item):
     game: str = GAME_NAME
-    
+
     def __init__(self, name: str, classification: IC, code: int, player: int):
         super().__init__(name, classification, code, player)
-        
+
+
 def create_world_items(world: "ForagerWorld"):
     item_pool: list[Item] = []
 
@@ -56,7 +57,8 @@ def create_world_items(world: "ForagerWorld"):
     for loc_to_fill in range(locations_left_to_fill):
         # Pick a random filler item and add that to the item pool
         random_filler: str = world.random.choice(list(world.item_class_sets["Filler"].keys()))
+        cat_name: str = world.item_class_sets["Filler"][random_filler]
         item_pool.append(ForagerItem(random_filler, IC.filler,
-            world.json_tables["items"]["Misc"][random_filler], world.player))
+                                     world.json_tables["items"][cat_name][random_filler], world.player))
 
     world.multiworld.itempool += item_pool
