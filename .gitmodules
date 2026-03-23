@@ -1,0 +1,3 @@
+[submodule "forager_git/Archipelago"]
+	path = forager_git/Archipelago
+	url = https://github.com/olixx12/Archipelago
