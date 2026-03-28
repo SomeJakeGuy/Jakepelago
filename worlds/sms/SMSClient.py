@@ -696,6 +696,7 @@ async def resolve_tickets(stage, ctx):
             # Byte 1 should correspond to Delfino Plaza
             dme.write_byte(addresses.SMS_NEXT_STAGE, 1)
             dme.write_byte(addresses.SMS_CURRENT_STAGE, 1)
+            await send_map_id(1, ctx)
         else:
             await send_map_id(stage, ctx)
     return
