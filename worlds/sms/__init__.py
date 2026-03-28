@@ -112,17 +112,19 @@ class SmsWorld(World):
                 self.multiworld.early_items[self.player].update({chosen_nozzle: 1})
 
         if hasattr(self.multiworld, "re_gen_passthrough"):
-            # This means that UT is currently trying to generate the logic to understand what regions/locations are req.
-            slot_data: dict = self.multiworld.re_gen_passthrough[self.game]
-            self.options.starting_nozzle.value = slot_data["starting_nozzle"]
-            self.options.corona_mountain_shines.value = slot_data["corona_mountain_shines"]
-            self.options.blue_coin_sanity.value = slot_data["blue_coin_sanity"]
-            self.options.level_access.value = slot_data["ticket_mode"]
-            self.options.trade_shine_maximum.value = slot_data["boathouse_maximum"]
-            self.options.enable_coin_shines.value = slot_data["coin_shine_enabled"]
-            self.ticket_chosen = slot_data["chosen_ticket"]
-            self.options.blue_coin_maximum.value = slot_data["blue_coin_maximum"]
-            self.options.nozzle_boxes.value = slot_data["nozzle_boxes"]
+            slot_data = self.multiworld.re_gen_passthrough[self.game]
+            for key, value in slot_data.items():
+                if key == "seed":
+                    continue
+
+                # If the slot data is an option value directly
+                if hasattr(self.options, key):
+                    getattr(self.options, key).value = value
+
+                # if the world has the attribute itself, add the value directly to the world
+                elif hasattr(self, key):
+                    setattr(self, key, value)
+
             return
 
         if self.options.level_access.value == 1:
@@ -271,19 +273,25 @@ class SmsWorld(World):
         progitempool.sort(key=sort_func)
 
     def fill_slot_data(self) -> Dict[str, Any]:
-        return {
-            "corona_mountain_shines": self.options.corona_mountain_shines.value,
-            "blue_coin_sanity": self.options.blue_coin_sanity.value,
-            "starting_nozzle": self.options.starting_nozzle.value,
-            "ticket_mode": self.options.level_access.value,
-            "boathouse_maximum": self.options.trade_shine_maximum.value,
-            "coin_shine_enabled": self.options.enable_coin_shines.value,
-            "death_link": self.options.death_link.value,
-            "chosen_ticket": self.ticket_chosen,
-            "blue_coin_maximum": self.options.blue_coin_maximum.value,
-            "nozzle_boxes": self.options.nozzle_boxes.value,
-            "seed": str(self.multiworld.seed_name)
-        }
+        slot_data: dict = {}
+
+        # This gets all the names of the options from both the world's option class and the inherited class as sets
+        # Since this world's options inherit from PerGameCommonOptions, there will be duplicates.
+        child_local_fields = set({f.name for f in fields(SmsOptions)})
+        parent_fields = set({f.name for f in fields(PerGameCommonOptions)})
+
+        # Subtract the elements to find the options only unique to this world, then sort them to avoid any
+        #   deterministic issues.
+        only_in_child = sorted(list(child_local_fields - parent_fields))
+
+        # Output the value of each based on the option type.
+        for child_option in only_in_child:
+            slot_data[child_option] = getattr(self.options, child_option).value
+
+        slot_data["death_link"] = self.options.death_link.value
+        slot_data["ticket_chosen"] = self.ticket_chosen,
+        slot_data["seed"] = str(self.multiworld.seed_name)
+        return slot_data
 
     def generate_output(self, output_directory: str):
         from .SMSClient import CLIENT_VERSION, AP_WORLD_VERSION_NAME
