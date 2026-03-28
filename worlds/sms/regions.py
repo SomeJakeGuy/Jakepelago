@@ -135,14 +135,16 @@ def create_region(region: SmsRegion, world: "SmsWorld"):
             len([reg_loc for reg_loc in curr_region.get_locations()]) >= world.options.trade_shine_maximum.value):
             continue
 
-        shine_loc: SmsLocation = SmsLocation(world, f"{curr_region.name} - {shine.name}", region, shine.requirements)
+        shine_loc: SmsLocation = SmsLocation(world, f"{curr_region.name} - {shine.name}", region,
+            shine.requirements)
         if region.trade:
             shine_loc.trades_req = True
         curr_region.locations.append(shine_loc)
 
     if world.options.blue_coin_sanity.value > 0:
         for blue_coin in region.blue_coins:
-            blue_loc: SmsLocation = SmsLocation(world, f"{curr_region.name} - {blue_coin.name}", region, blue_coin.requirements)
+            blue_loc: SmsLocation = SmsLocation(world, f"{curr_region.name} - {blue_coin.name}", region,
+                blue_coin.requirements)
             if world.options.blue_coin_sanity.value != 1:
                 curr_region.add_event(blue_loc.name, "Blue Coin",
                     (lambda state, temp_loc=blue_loc: temp_loc.access_rule(state)))
@@ -150,9 +152,11 @@ def create_region(region: SmsRegion, world: "SmsWorld"):
                 blue_loc.blue = True
                 curr_region.locations.append(blue_loc)
 
-    for nozzle_box in region.nozzle_boxes:
-        nozzle_loc: SmsLocation = SmsLocation(world, f"{curr_region.name} - {nozzle_box.name}", region, nozzle_box.requirements)
-        curr_region.locations.append(nozzle_loc)
+    if world.options.nozzle_boxes.value:
+        for nozzle_box in region.nozzle_boxes:
+            nozzle_loc: SmsLocation = SmsLocation(world, f"{curr_region.name} - {nozzle_box.name}", region,
+                nozzle_box.requirements)
+            curr_region.locations.append(nozzle_loc)
 
     return curr_region
 

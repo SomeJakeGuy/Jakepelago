@@ -80,12 +80,18 @@ class StartingNozzle(Choice):
     default = 0
 
 
+class NozzleBoxes(Toggle):
+    """Enables Nozzle Boxes as a location."""
+    display_name = "Enable Nozzle Boxes"
+
+
 @dataclass
 class SmsOptions(PerGameCommonOptions):
     level_access: LevelAccess
     enable_coin_shines: EnableCoinShines
     corona_mountain_shines: CoronaMountainShines
     extra_shines: ExtraShines
+    nozzle_boxes: NozzleBoxes
     blue_coin_sanity: BlueCoinSanity
     blue_coin_maximum: BlueCoinMaximum
     trade_shine_maximum: TradeShineMaximum
