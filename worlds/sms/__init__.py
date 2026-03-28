@@ -10,7 +10,7 @@ import settings
 import Options
 from BaseClasses import ItemClassification, MultiWorld, Tutorial, Item, Location
 from worlds.AutoWorld import WebWorld, World
-from worlds.LauncherComponents import Component, SuffixIdentifier, Type, components, launch_subprocess
+from worlds.LauncherComponents import Component, SuffixIdentifier, Type, components, launch_subprocess, icon_paths
 
 from .items import ALL_ITEMS_TABLE, REGULAR_PROGRESSION_ITEMS, ALL_PROGRESSION_ITEMS, TICKET_ITEMS, JUNK_ITEMS, SmsItem
 from .options import *
@@ -27,9 +27,10 @@ def run_client(*args):
     from .SMSClient import main
     launch_subprocess(main, name="SMS Client", args=args)
 
+icon_paths["sms_ico"] = f"ap:{__name__}/assets/sms_ap_logo.png"
 components.append(
     Component("Super Mario Sunshine Client", func=run_client, component_type=Type.CLIENT,
-        file_identifier=SuffixIdentifier(".apsms")))
+        icon="sms_ico", file_identifier=SuffixIdentifier(".apsms")))
 
 class SuperMarioSunshineSettings(settings.Group):
     class ISOFile(settings.UserFilePath):
