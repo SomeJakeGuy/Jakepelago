@@ -24,7 +24,11 @@ NOKI_BAY_ONE: SmsRegion = SmsRegion(
             in_game_bit=59,
         ),
         Shine(
-            "100 Coins", [Requirements(SPRAY_AND_HOVER)], hundred=True, in_game_bit=105
+            "100 Coins",
+            requirements=[Requirements(SPRAY_AND_HOVER)],
+            hard=[Requirements(SPRAY_OR_HOVER)],
+            hundred=True,
+            in_game_bit=105,
         ),
     ],
     blue_coins=[
