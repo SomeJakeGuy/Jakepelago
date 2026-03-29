@@ -24,21 +24,155 @@ PIANTA_VILLAGE_ONE: SmsRegion = SmsRegion(
     blue_coins=[
         BlueCoin("River End", in_game_bit=432),
         BlueCoin("Grass", in_game_bit=433),
-        BlueCoin("Back Tree", [Requirements([[NozzleType.hover]])], in_game_bit=434),
+        BlueCoin(
+            "Back Tree",
+            requirements=[Requirements([[NozzleType.hover]])],
+            hard=[Requirements(manual_none=True)],
+            in_game_bit=434,
+        ),
         BlueCoin("River Bridge", in_game_bit=435),
-        BlueCoin("Left Tree", [Requirements([[NozzleType.hover]])], in_game_bit=438),
-        BlueCoin("Waterfall", [Requirements([[NozzleType.spray]])], in_game_bit=439),
         BlueCoin(
-            "Wall Triangle", [Requirements([[NozzleType.spray]])], in_game_bit=443
+            "Left Tree",
+            requirements=[Requirements([[NozzleType.hover]])],
+            hard=[Requirements(manual_none=True)],
+            in_game_bit=438,
         ),
         BlueCoin(
-            "Hot Tub Triangle", [Requirements([[NozzleType.spray]])], in_game_bit=444
+            "Waterfall",
+            requirements=[
+                Requirements(SPRAY_OR_HOVER),
+                Requirements(
+                    [[NozzleType.yoshi]],
+                    location=f"{SmsRegionName.PIANTA_FOUR} - Chain Chomp's Bath",
+                ),
+            ],
+            advanced=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            in_game_bit=439,
         ),
-        BlueCoin("Left M", [Requirements([[NozzleType.spray]])], in_game_bit=445),
-        BlueCoin("Right M", [Requirements([[NozzleType.spray]])], in_game_bit=446),
-        BlueCoin("Spawn M", [Requirements([[NozzleType.spray]])], in_game_bit=447),
-        BlueCoin("Underside M", [Requirements([[NozzleType.spray]])], in_game_bit=448),
-        BlueCoin("Moon", [Requirements(ROCKET_AND_SPRAY_AND_HOVER)], in_game_bit=420),
+        BlueCoin(
+            "Wall Triangle",
+            requirements=[
+                Requirements([[NozzleType.spray]]),
+                Requirements(
+                    [[NozzleType.yoshi]],
+                    location=f"{SmsRegionName.PIANTA_FOUR} - Chain Chomp's Bath",
+                ),
+            ],
+            hard=[
+                Requirements(SPRAY_OR_HOVER),
+                Requirements(
+                    [[NozzleType.yoshi]],
+                    location=f"{SmsRegionName.PIANTA_FOUR} - Chain Chomp's Bath",
+                ),
+            ],
+            advanced=[
+                Requirements(SPRAY_OR_HOVER_OR_TURBO),
+                Requirements(
+                    [[NozzleType.yoshi]],
+                    location=f"{SmsRegionName.PIANTA_FOUR} - Chain Chomp's Bath",
+                ),
+            ],
+            in_game_bit=443,
+        ),
+        BlueCoin(
+            "Hot Tub Triangle",
+            requirements=[
+                Requirements([[NozzleType.spray]]),
+                Requirements(
+                    [[NozzleType.yoshi]],
+                    location=f"{SmsRegionName.PIANTA_FOUR} - Chain Chomp's Bath",
+                ),
+            ],
+            hard=[
+                Requirements(SPRAY_OR_HOVER),
+                Requirements(
+                    [[NozzleType.yoshi]],
+                    location=f"{SmsRegionName.PIANTA_FOUR} - Chain Chomp's Bath",
+                ),
+            ],
+            advanced=[
+                Requirements(SPRAY_OR_HOVER_OR_TURBO),
+                Requirements(
+                    [[NozzleType.yoshi]],
+                    location=f"{SmsRegionName.PIANTA_FOUR} - Chain Chomp's Bath",
+                ),
+            ],
+            in_game_bit=444,
+        ),
+        BlueCoin(
+            "Left M",
+            requirements=[
+                Requirements(SPRAY_OR_HOVER),
+                Requirements(
+                    [[NozzleType.yoshi]],
+                    location=f"{SmsRegionName.PIANTA_FOUR} - Chain Chomp's Bath",
+                ),
+            ],
+            advanced=[
+                Requirements(SPRAY_OR_HOVER_OR_TURBO),
+                Requirements(
+                    [[NozzleType.yoshi]],
+                    location=f"{SmsRegionName.PIANTA_FOUR} - Chain Chomp's Bath",
+                ),
+            ],
+            in_game_bit=445,
+        ),
+        BlueCoin(
+            "Right M",
+            requirements=[
+                Requirements(SPRAY_OR_HOVER),
+                Requirements(
+                    [[NozzleType.yoshi]],
+                    location=f"{SmsRegionName.PIANTA_FOUR} - Chain Chomp's Bath",
+                ),
+            ],
+            advanced=[
+                Requirements(SPRAY_OR_HOVER_OR_TURBO),
+                Requirements(
+                    [[NozzleType.yoshi]],
+                    location=f"{SmsRegionName.PIANTA_FOUR} - Chain Chomp's Bath",
+                ),
+            ],
+            in_game_bit=446,
+        ),
+        BlueCoin(
+            "Spawn M",
+            requirements=[
+                Requirements(SPRAY_OR_HOVER),
+                Requirements(
+                    [[NozzleType.yoshi]],
+                    location=f"{SmsRegionName.PIANTA_FOUR} - Chain Chomp's Bath",
+                ),
+            ],
+            advanced=[
+                Requirements(SPRAY_OR_HOVER_OR_TURBO),
+                Requirements(
+                    [[NozzleType.yoshi]],
+                    location=f"{SmsRegionName.PIANTA_FOUR} - Chain Chomp's Bath",
+                ),
+            ],
+            in_game_bit=447,
+        ),
+        BlueCoin("Underside M", [Requirements(SPRAY_AND_HOVER)], in_game_bit=448),
+        BlueCoin(
+            "Moon",
+            requirements=[Requirements(SPROVER_OR_SPROCKET)],
+            hard=[
+                Requirements(SPRAY_AND_ANY_FLUDD),
+                Requirements(
+                    [[NozzleType.yoshi]],
+                    location=f"{SmsRegionName.PIANTA_FOUR} - Chain Chomp's Bath",
+                ),
+            ],
+            tears=[
+                Requirements([[NozzleType.spray]]),
+                Requirements(
+                    [[NozzleType.yoshi]],
+                    location=f"{SmsRegionName.PIANTA_FOUR} - Chain Chomp's Bath",
+                ),
+            ],
+            in_game_bit=420,
+        ),
         BlueCoin("Statue's Nose", in_game_bit=429),
     ],
     parent_region=SmsRegionName.PIANTA_ENTRANCE,
@@ -57,7 +191,13 @@ PIANTA_VILLAGE_TWO: SmsRegion = SmsRegion(
         )
     ],
     blue_coins=[
-        BlueCoin("Sign", [Requirements([[NozzleType.spray]])], in_game_bit=431)
+        BlueCoin(
+            "Sign",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            advanced=[Requirements(ANY_FLUDD)],
+            in_game_bit=431,
+        )
     ],
     parent_region=SmsRegionName.PIANTA_ENTRANCE,
 )
@@ -79,9 +219,18 @@ PIANTA_VILLAGE_THREE: SmsRegion = SmsRegion(
         ),
     ],
     blue_coins=[
-        BlueCoin("Giant M", [Requirements([[NozzleType.spray]])], in_game_bit=430),
         BlueCoin(
-            "Burning Pianta", [Requirements([[NozzleType.spray]])], in_game_bit=442
+            "Giant M",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            advanced=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            in_game_bit=430,
+        ),
+        BlueCoin(
+            "Burning Pianta",
+            requirements=[Requirements([[NozzleType.spray]])],
+            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            tears=[Requirements(manual_none=True)],
+            in_game_bit=442,
         ),
         BlueCoin("FLUDD M", [Requirements([[NozzleType.spray]])], in_game_bit=449),
     ],
@@ -153,28 +302,60 @@ PIANTA_VILLAGE_SIX: SmsRegion = SmsRegion(
     ],
     blue_coins=[
         BlueCoin(
-            "Pianta in Need A", [Requirements([[NozzleType.spray]])], in_game_bit=421
+            "Pianta in Need A",
+            requirements=[Requirements([[NozzleType.spray]])],
+            hard=[Requirements(SPRAY_OR_HOVER)],
+            advanced=[Requirements(manual_none=True)],
+            in_game_bit=421,
         ),
         BlueCoin(
-            "Pianta in Need B", [Requirements([[NozzleType.spray]])], in_game_bit=422
+            "Pianta in Need B",
+            requirements=[Requirements([[NozzleType.spray]])],
+            hard=[Requirements(SPRAY_OR_HOVER)],
+            advanced=[Requirements(manual_none=True)],
+            in_game_bit=422,
         ),
         BlueCoin(
-            "Pianta in Need C", [Requirements([[NozzleType.spray]])], in_game_bit=423
+            "Pianta in Need C",
+            requirements=[Requirements([[NozzleType.spray]])],
+            hard=[Requirements(SPRAY_OR_HOVER)],
+            advanced=[Requirements(manual_none=True)],
+            in_game_bit=423,
         ),
         BlueCoin(
-            "Pianta in Need D", [Requirements([[NozzleType.spray]])], in_game_bit=424
+            "Pianta in Need D",
+            requirements=[Requirements([[NozzleType.spray]])],
+            hard=[Requirements(SPRAY_OR_HOVER)],
+            advanced=[Requirements(manual_none=True)],
+            in_game_bit=424,
         ),
         BlueCoin(
-            "Pianta in Need E", [Requirements([[NozzleType.spray]])], in_game_bit=425
+            "Pianta in Need E",
+            requirements=[Requirements([[NozzleType.spray]])],
+            hard=[Requirements(SPRAY_OR_HOVER)],
+            advanced=[Requirements(manual_none=True)],
+            in_game_bit=425,
         ),
         BlueCoin(
-            "Pianta in Need F", [Requirements([[NozzleType.spray]])], in_game_bit=426
+            "Pianta in Need F",
+            requirements=[Requirements([[NozzleType.spray]])],
+            hard=[Requirements(SPRAY_OR_HOVER)],
+            advanced=[Requirements(manual_none=True)],
+            in_game_bit=426,
         ),
         BlueCoin(
-            "Pianta in Need G", [Requirements([[NozzleType.spray]])], in_game_bit=427
+            "Pianta in Need G",
+            requirements=[Requirements([[NozzleType.spray]])],
+            hard=[Requirements(SPRAY_OR_HOVER)],
+            advanced=[Requirements(manual_none=True)],
+            in_game_bit=427,
         ),
         BlueCoin(
-            "Pianta in Need H", [Requirements([[NozzleType.spray]])], in_game_bit=428
+            "Pianta in Need H",
+            requirements=[Requirements([[NozzleType.spray]])],
+            hard=[Requirements(SPRAY_OR_HOVER)],
+            advanced=[Requirements(manual_none=True)],
+            in_game_bit=428,
         ),
     ],
     parent_region=SmsRegionName.PIANTA_ENTRANCE,
@@ -234,7 +415,15 @@ PIANTA_VILLAGE_EIGHT: SmsRegion = SmsRegion(
             in_game_bit=69,
         ),
     ],
-    blue_coins=[BlueCoin("Bird", [Requirements(SPRAY_AND_HOVER)], in_game_bit=441)],
+    blue_coins=[
+        BlueCoin(
+            "Bird",
+            requirements=[Requirements(SPRAY_AND_HOVER)],
+            hard=[Requirements(NozzleType.spray)],
+            tears=[Requirements(SPRAY_OR_HOVER)],
+            in_game_bit=441,
+        )
+    ],
     nozzle_boxes=[
         NozzleBox("Rocket Box", [Requirements([[NozzleType.hover]])], in_game_bit=882)
     ],
