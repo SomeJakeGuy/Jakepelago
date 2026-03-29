@@ -260,7 +260,7 @@ SPROCKET_OR_SPROVER: list[list[str]] = [
     [NozzleType.rocket, NozzleType.spray],
     [NozzleType.hover, NozzleType.spray],
 ]
-SPRAY_AND_HOVER_OR_ROCKET: list[list[str]] = [
+SPROVER_OR_ROCKET: list[list[str]] = [
     [NozzleType.rocket],
     [NozzleType.hover, NozzleType.spray],
 ]
@@ -282,10 +282,6 @@ ROCKET_AND_SPRAY_OR_ROCKET_AND_HOVER_OR_YOSHI_OR_TURBO: list[list[str]] = [
 SPRAY_AND_TURBO_OR_HOVER_AND_TURBO: list[list[str]] = [
     [NozzleType.spray, NozzleType.turbo],
     [NozzleType.hover, NozzleType.turbo],
-]
-SPRAY_AND_HOVER_OR_ROCKET: list[list[str]] = [
-    [NozzleType.rocket],
-    [NozzleType.hover, NozzleType.spray],
 ]
 ROCKET_OR_HOVER: list[list[str]] = [[NozzleType.hover], [NozzleType.rocket]]
 ROCKET_OR_HOVER: list[list[str]] = [[NozzleType.hover], [NozzleType.rocket]]
