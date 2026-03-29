@@ -17,7 +17,20 @@ SIRENA_BEACH_ONE: SmsRegion = SmsRegion(
             hard=[Requirements(SPRAY_OR_HOVER)],
             tears=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
             in_game_bit=40,
-        )
+        ),
+        Shine(
+            "100 Coins",  # Maybe revisit this one. Can probably get more detailed, but I really don't want to do it
+            requirements=[
+                Requirements(
+                    [[NozzleType.spray]],
+                    location=f"{SmsRegionName.SIRENA_TWO} - The Hotel Lobby's Secret",
+                )
+            ],
+            advanced=[Requirements(SPRAY_OR_HOVER)],
+            tears=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            hundred=True,
+            in_game_bit=104,
+        ),
     ],
     blue_coins=[
         BlueCoin("Ocean", in_game_bit=387),
@@ -109,12 +122,6 @@ SIRENA_BEACH_THREE: SmsRegion = SmsRegion(
             hard=[Requirements(YOSHI_AND_SPRAY_OR_YOSHI_AND_HOVER)],
             advanced=[Requirements(manual_none=True)],
             in_game_bit=42,
-        ),
-        Shine(
-            "100 Coins",
-            [Requirements([[NozzleType.spray]])],
-            hundred=True,
-            in_game_bit=104,
         ),
     ],
     blue_coins=[
