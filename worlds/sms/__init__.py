@@ -98,6 +98,7 @@ class SmsWorld(World):
 
     def __init__(self, multiworld: MultiWorld, player: int):
         super().__init__(multiworld, player)
+        self.ticket_chosen = ""
 
     def generate_early(self):
         if self.options.starting_nozzle.value == 0:

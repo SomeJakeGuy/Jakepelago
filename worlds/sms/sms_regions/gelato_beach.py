@@ -13,14 +13,14 @@ GELATO_BEACH_ENTRANCE: SmsRegion = SmsRegion(
                 Requirements(SPROCKET_OR_HOVER),
                 Requirements(
                     SPRAY_OR_HOVER_OR_ROCKET,
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - It's Shadow Mario! After Him!",
+                    location=f"{SmsRegionName.GELATO_FIVE} - It's Shadow Mario! After Him!",
                 ),
             ],
             hard=[
                 Requirements(SPRAY_OR_HOVER),
                 Requirements(
                     manual_none=True,
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - It's Shadow Mario! After Him!",
+                    location=f"{SmsRegionName.GELATO_FIVE} - It's Shadow Mario! After Him!",
                 ),
             ],
             advanced=[Requirements(SPRAY_OR_HOVER_OR_ROCKET)],
@@ -41,36 +41,9 @@ GELATO_BEACH_ONE: SmsRegion = SmsRegion(
             in_game_bit=20,
         ),
         Shine(
-            "Mirror Madness! Tilt, Slam, Bam!",
-            requirements=[Requirements([[NozzleType.spray]])],
-            hard=[Requirements(SPRAY_OR_HOVER)],
-            advanced=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
-            in_game_bit=21,
-        ),
-        Shine(
-            "Wiggler Ahoy! Full Steam Ahead!",
-            [
-                Requirements(
-                    SPRAY_OR_HOVER_OR_TURBO,
-                    location=f"{SmsRegionName.GELATO_ONE} - Mirror Madness! Tilt, Slam, Bam!",
-                )
-            ],
-            in_game_bit=22,
-        ),
-        Shine(
             "Red Coins in the Sand Castle",
-            requirements=[
-                Requirements(
-                    [[NozzleType.hover]],
-                    location=f"{SmsRegionName.GELATO_ONE} - Wiggler Ahoy! Full Steam Ahead!",
-                )
-            ],
-            hard=[
-                Requirements(
-                    SPRAY_OR_HOVER_OR_TURBO,
-                    location=f"{SmsRegionName.GELATO_ONE} - Wiggler Ahoy! Full Steam Ahead!",
-                )
-            ],
+            requirements=[Requirements([[NozzleType.hover]])],
+            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
             in_game_bit=28,
         ),
         Shine(
@@ -79,6 +52,26 @@ GELATO_BEACH_ONE: SmsRegion = SmsRegion(
             hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
             in_game_bit=29,
         ),
+        Shine(
+            "100 Coins",
+            requirements=[
+                Requirements(SPROCKET_OR_HOVER),
+                Requirements(
+                    SPRAY_OR_HOVER_OR_ROCKET,
+                    location=f"{SmsRegionName.GELATO_FIVE} - It's Shadow Mario! After Him!",
+                ),
+            ],
+            hard=[
+                Requirements(SPRAY_OR_HOVER),
+                Requirements(
+                    manual_none=True,
+                    location=f"{SmsRegionName.GELATO_FIVE} - It's Shadow Mario! After Him!",
+                ),
+            ],
+            advanced=[Requirements(SPRAY_OR_HOVER_OR_ROCKET)],
+            hundred=True,
+            in_game_bit=102,
+        ),
     ],
     blue_coins=[
         BlueCoin(
@@ -86,7 +79,7 @@ GELATO_BEACH_ONE: SmsRegion = SmsRegion(
             [
                 Requirements(SPRAY_OR_HOVER),
                 Requirements(
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint"
+                    location=f"{SmsRegionName.GELATO_FIVE} - Il Piantissimo's Sand Sprint"
                 ),
             ],
             in_game_bit=275,
@@ -97,14 +90,14 @@ GELATO_BEACH_ONE: SmsRegion = SmsRegion(
                 Requirements(SPRAY_OR_HOVER),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
+                    location=f"{SmsRegionName.GELATO_FIVE} - Il Piantissimo's Sand Sprint",
                 ),
             ],
             advanced=[
                 Requirements(SPRAY_OR_HOVER_OR_TURBO),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
+                    location=f"{SmsRegionName.GELATO_FIVE} - Il Piantissimo's Sand Sprint",
                 ),
             ],
             in_game_bit=276,
@@ -116,7 +109,7 @@ GELATO_BEACH_ONE: SmsRegion = SmsRegion(
                 Requirements(SPRAY_OR_HOVER_OR_TURBO),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
+                    location=f"{SmsRegionName.GELATO_FIVE} - Il Piantissimo's Sand Sprint",
                 ),
             ],
             in_game_bit=277,
@@ -128,14 +121,14 @@ GELATO_BEACH_ONE: SmsRegion = SmsRegion(
                 Requirements(SPRAY_OR_HOVER),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
+                    location=f"{SmsRegionName.GELATO_FIVE} - Il Piantissimo's Sand Sprint",
                 ),
             ],
             advanced=[
                 Requirements(SPRAY_OR_HOVER_OR_TURBO),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
+                    location=f"{SmsRegionName.GELATO_FIVE} - Il Piantissimo's Sand Sprint",
                 ),
             ],
             in_game_bit=278,
@@ -146,14 +139,14 @@ GELATO_BEACH_ONE: SmsRegion = SmsRegion(
                 Requirements([[NozzleType.spray]]),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
+                    location=f"{SmsRegionName.GELATO_FIVE} - Il Piantissimo's Sand Sprint",
                 ),
             ],
             tears=[
                 Requirements(SPRAY_OR_HOVER_OR_TURBO),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
+                    location=f"{SmsRegionName.GELATO_FIVE} - Il Piantissimo's Sand Sprint",
                 ),
             ],
             in_game_bit=280,
@@ -164,14 +157,14 @@ GELATO_BEACH_ONE: SmsRegion = SmsRegion(
                 Requirements([[NozzleType.spray]]),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
+                    location=f"{SmsRegionName.GELATO_FIVE} - Il Piantissimo's Sand Sprint",
                 ),
             ],
             tears=[
                 Requirements(SPRAY_OR_HOVER_OR_TURBO),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
+                    location=f"{SmsRegionName.GELATO_FIVE} - Il Piantissimo's Sand Sprint",
                 ),
             ],
             in_game_bit=281,
@@ -198,122 +191,24 @@ GELATO_BEACH_ONE: SmsRegion = SmsRegion(
         BlueCoin("Big Tree", in_game_bit=290),
         BlueCoin("Crevice", in_game_bit=291),
         BlueCoin("Sand Cabana Roof", in_game_bit=293),
-        BlueCoin(
-            "Shack",
-            requirements=[Requirements([[NozzleType.rocket]])],
-            hard=[
-                Requirements(ROCKET_OR_HOVER),
-                Requirements(
-                    [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
-                ),
-            ],
-            advanced=[
-                Requirements(SPRAY_OR_HOVER_OR_ROCKET),
-                Requirements(
-                    [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
-                ),
-            ],
-            in_game_bit=294,
-        ),
     ],
     parent_region=SmsRegionName.GELATO_ENTRANCE,
 )
 
-GELATO_BEACH_ONE_TWO_FOUR: SmsRegion = SmsRegion(
-    SmsRegionName.GELATO_ONE_TWO_FOUR,
-    blue_coins=[
-        BlueCoin(
-            "Red Cataquack",
-            requirements=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
-            hard=[Requirements(manual_none=True)],
-            in_game_bit=270,
-        )
-    ],
-    parent_region=SmsRegionName.GELATO_ENTRANCE,
-)
-
-GELATO_NOT_THREE: SmsRegion = SmsRegion(
-    SmsRegionName.GELATO_NOT_THREE,
-    blue_coins=[
-        BlueCoin(
-            "Sand Shine at Sand Cabana",
-            requirements=[
-                Requirements(SPRAY_OR_HOVER),
-                Requirements(
-                    [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
-                ),
-            ],
-            hard=[
-                Requirements(SPRAY_OR_HOVER_OR_TURBO),
-                Requirements(
-                    [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
-                ),
-            ],
-            in_game_bit=271,
-        ),
-        BlueCoin(
-            "Sand Shine at Surf Cabana",
-            requirements=[
-                Requirements(SPRAY_OR_HOVER),
-                Requirements(
-                    [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
-                ),
-            ],
-            hard=[
-                Requirements(SPRAY_OR_HOVER_OR_TURBO),
-                Requirements(
-                    [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
-                ),
-            ],
-            in_game_bit=272,
-        ),
-        BlueCoin(
-            "Middle Sand Shine",
-            requirements=[
-                Requirements(SPRAY_OR_HOVER),
-                Requirements(
-                    [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
-                ),
-            ],
-            hard=[
-                Requirements(SPRAY_OR_HOVER_OR_TURBO),
-                Requirements(
-                    [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
-                ),
-            ],
-            in_game_bit=274,
-        ),
-        BlueCoin("Close Underwater", in_game_bit=284),
-        BlueCoin("Far Underwater", in_game_bit=285),
-        BlueCoin(
-            "Blue Fish",
-            requirements=[Requirements([[NozzleType.turbo]])],
-            hard=[Requirements(manual_none=True)],
-            in_game_bit=286,
-        ),
-        BlueCoin(
-            "Red Fish",
-            requirements=[Requirements([[NozzleType.turbo]])],
-            hard=[Requirements(manual_none=True)],
-            in_game_bit=287,
-        ),
-    ],
-    parent_region=SmsRegionName.GELATO_ENTRANCE,
-)
-
-GELATO_BEACH_TWO_FOUR_THRU_EIGHT: SmsRegion = SmsRegion(
-    SmsRegionName.GELATO_TWO_FOUR_THRU_EIGHT,
+GELATO_BEACH_TWO: SmsRegion = SmsRegion(
+    SmsRegionName.GELATO_TWO,
     requirements=[
         Requirements(
             location=f"{SmsRegionName.GELATO_ONE} - Dune Bud Sand Castle Secret"
+        )
+    ],
+    shines=[
+        Shine(
+            "Mirror Madness! Tilt, Slam, Bam!",
+            requirements=[Requirements([[NozzleType.spray]])],
+            hard=[Requirements(SPRAY_OR_HOVER)],
+            advanced=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            in_game_bit=21,
         )
     ],
     blue_coins=[
@@ -323,14 +218,14 @@ GELATO_BEACH_TWO_FOUR_THRU_EIGHT: SmsRegion = SmsRegion(
                 Requirements(SPRAY_OR_HOVER),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
+                    location=f"{SmsRegionName.GELATO_FIVE} - Il Piantissimo's Sand Sprint",
                 ),
             ],
             hard=[
                 Requirements(SPRAY_OR_HOVER_OR_TURBO),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
+                    location=f"{SmsRegionName.GELATO_FIVE} - Il Piantissimo's Sand Sprint",
                 ),
             ],
             in_game_bit=292,
@@ -339,11 +234,29 @@ GELATO_BEACH_TWO_FOUR_THRU_EIGHT: SmsRegion = SmsRegion(
     parent_region=SmsRegionName.GELATO_ENTRANCE,
 )
 
-GELATO_BEACH_FOUR_ONLY: SmsRegion = SmsRegion(
-    SmsRegionName.GELATO_FOUR_ONLY,
+GELATO_BEACH_THREE: SmsRegion = SmsRegion(
+    SmsRegionName.GELATO_THREE,
     requirements=[
         Requirements(
-            location=f"{SmsRegionName.GELATO_ONE} - Wiggler Ahoy! Full Steam Ahead!"
+            location=f"{SmsRegionName.GELATO_TWO} - Mirror Madness! Tilt, Slam, Bam!"
+        )
+    ],
+    shines=[
+        Shine(
+            "Wiggler Ahoy! Full Steam Ahead!",
+            [Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            in_game_bit=22,
+        )
+    ],
+    blue_coins=[],
+    parent_region=SmsRegionName.GELATO_ENTRANCE,
+)
+
+GELATO_BEACH_FOUR: SmsRegion = SmsRegion(
+    SmsRegionName.GELATO_FOUR,
+    requirements=[
+        Requirements(
+            location=f"{SmsRegionName.GELATO_THREE} - Wiggler Ahoy! Full Steam Ahead!"
         )
     ],
     shines=[
@@ -384,12 +297,10 @@ GELATO_BEACH_FOUR_ONLY: SmsRegion = SmsRegion(
     parent_region=SmsRegionName.GELATO_ENTRANCE,
 )
 
-GELATO_BEACH_FIVE_EIGHT: SmsRegion = SmsRegion(
-    SmsRegionName.GELATO_FIVE_EIGHT,
+GELATO_BEACH_FIVE: SmsRegion = SmsRegion(
+    SmsRegionName.GELATO_FIVE,
     requirements=[
-        Requirements(
-            location=f"{SmsRegionName.GELATO_FOUR_ONLY} - The Sand Bird is Born"
-        )
+        Requirements(location=f"{SmsRegionName.GELATO_FOUR} - The Sand Bird is Born")
     ],
     shines=[
         Shine(
@@ -397,20 +308,7 @@ GELATO_BEACH_FIVE_EIGHT: SmsRegion = SmsRegion(
             requirements=[Requirements(ROCKET_OR_HOVER_OR_TURBO)],
             hard=[Requirements(manual_none=True)],
             in_game_bit=24,
-        ),
-        Shine("Red Coins in the Coral Reef", in_game_bit=25),
-        Shine(
-            "It's Shadow Mario! After Him!",
-            requirements=[Requirements([[NozzleType.spray]])],
-            hard=[Requirements(SPRAY_OR_HOVER)],
-            in_game_bit=26,
-        ),
-        Shine(
-            "The Watermelon Festival",
-            requirements=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
-            hard=[Requirements(manual_none=True)],
-            in_game_bit=27,
-        ),
+        )
     ],
     blue_coins=[
         BlueCoin(
@@ -419,7 +317,7 @@ GELATO_BEACH_FIVE_EIGHT: SmsRegion = SmsRegion(
                 Requirements(SPRAY_OR_HOVER_OR_TURBO),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint",
+                    location=f"{SmsRegionName.GELATO_FIVE} - Il Piantissimo's Sand Sprint",
                 ),
             ],
             [Requirements(manual_none=True)],
@@ -436,14 +334,53 @@ GELATO_BEACH_SIX: SmsRegion = SmsRegion(
     SmsRegionName.GELATO_SIX,
     requirements=[
         Requirements(
-            location=f"{SmsRegionName.GELATO_FIVE_EIGHT} - Il Piantissimo's Sand Sprint"
+            location=f"{SmsRegionName.GELATO_FIVE} - Il Piantissimo's Sand Sprint"
         )
     ],
+    shines=[Shine("Red Coins in the Coral Reef", in_game_bit=25)],
     blue_coins=[
         BlueCoin(
             "Yellow Goo Dune Bud", [Requirements([[NozzleType.yoshi]])], in_game_bit=279
         ),
         BlueCoin("Beehive", [Requirements([[NozzleType.yoshi]])], in_game_bit=295),
     ],
+    parent_region=SmsRegionName.GELATO_ENTRANCE,
+)
+
+GELATO_BEACH_SEVEN: SmsRegion = SmsRegion(
+    SmsRegionName.GELATO_SEVEN,
+    requirements=[
+        Requirements(
+            location=f"{SmsRegionName.GELATO_SIX} - Red Coins in the Coral Reef"
+        )
+    ],
+    shines=[
+        Shine(
+            "It's Shadow Mario! After Him!",
+            requirements=[Requirements([[NozzleType.spray]])],
+            hard=[Requirements(SPRAY_OR_HOVER)],
+            in_game_bit=26,
+        )
+    ],
+    blue_coins=[],
+    parent_region=SmsRegionName.GELATO_ENTRANCE,
+)
+
+GELATO_BEACH_EIGHT: SmsRegion = SmsRegion(
+    SmsRegionName.GELATO_EIGHT,
+    requirements=[
+        Requirements(
+            location=f"{SmsRegionName.GELATO_SEVEN} - It's Shadow Mario! After Him!"
+        )
+    ],
+    shines=[
+        Shine(
+            "The Watermelon Festival",
+            requirements=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            hard=[Requirements(manual_none=True)],
+            in_game_bit=27,
+        )
+    ],
+    blue_coins=[],
     parent_region=SmsRegionName.GELATO_ENTRANCE,
 )

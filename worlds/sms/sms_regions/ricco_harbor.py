@@ -6,15 +6,6 @@ RICCO_HARBOR_ENTRANCE: SmsRegion = SmsRegion(
         Requirements(ANY_SPLASHER, shines=3),
         Requirements(skip_forward=True),
     ],
-    shines=[
-        Shine(
-            "100 Coins",
-            requirements=[Requirements([[NozzleType.hover]])],
-            hard=[Requirements(manual_none=True)],
-            hundred=True,
-            in_game_bit=101,
-        ),
-    ],
     ticketed="Ricco Harbor Ticket",
     parent_region=SmsRegionName.PLAZA,
 )
@@ -37,21 +28,21 @@ RICCO_HARBOR_ONE: SmsRegion = SmsRegion(
                 Requirements([[NozzleType.spray]]),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.RICCO_FOUR_SEVEN} - Shadow Mario Revisited",
+                    location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
             hard=[
                 Requirements(SPRAY_OR_HOVER),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.RICCO_FOUR_SEVEN} - Shadow Mario Revisited",
+                    location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
             advanced=[
                 Requirements(SPRAY_OR_HOVER_OR_TURBO),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.RICCO_FOUR_SEVEN} - Shadow Mario Revisited",
+                    location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
             in_game_bit=221,
@@ -62,14 +53,14 @@ RICCO_HARBOR_ONE: SmsRegion = SmsRegion(
                 Requirements(SPRAY_OR_HOVER),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.RICCO_FOUR_SEVEN} - Shadow Mario Revisited",
+                    location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
             hard=[
                 Requirements(SPRAY_OR_HOVER_OR_TURBO),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.RICCO_FOUR_SEVEN} - Shadow Mario Revisited",
+                    location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
             in_game_bit=222,
@@ -80,14 +71,14 @@ RICCO_HARBOR_ONE: SmsRegion = SmsRegion(
                 Requirements(SPRAY_OR_HOVER),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.RICCO_FOUR_SEVEN} - Shadow Mario Revisited",
+                    location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
             hard=[
                 Requirements(SPRAY_OR_HOVER_OR_TURBO),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.RICCO_FOUR_SEVEN} - Shadow Mario Revisited",
+                    location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
             in_game_bit=223,
@@ -99,14 +90,14 @@ RICCO_HARBOR_ONE: SmsRegion = SmsRegion(
                 Requirements(SPRAY_OR_HOVER),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.RICCO_FOUR_SEVEN} - Shadow Mario Revisited",
+                    location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
             advanced=[
                 Requirements(SPRAY_OR_HOVER_OR_TURBO),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.RICCO_FOUR_SEVEN} - Shadow Mario Revisited",
+                    location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
             in_game_bit=224,
@@ -117,14 +108,14 @@ RICCO_HARBOR_ONE: SmsRegion = SmsRegion(
                 Requirements(SPRAY_OR_HOVER),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.RICCO_FOUR_SEVEN} - Shadow Mario Revisited",
+                    location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
             hard=[
                 Requirements(SPRAY_OR_HOVER_OR_TURBO),
                 Requirements(
                     [[NozzleType.yoshi]],
-                    location=f"{SmsRegionName.RICCO_FOUR_SEVEN} - Shadow Mario Revisited",
+                    location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
             in_game_bit=226,
@@ -135,7 +126,7 @@ RICCO_HARBOR_ONE: SmsRegion = SmsRegion(
                 Requirements(SPROCKET_OR_HOVER),
                 Requirements(
                     [NozzleType.yoshi],
-                    location=f"{SmsRegionName.RICCO_FOUR_SEVEN} - Shadow Mario Revisited",
+                    location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
             tears=[Requirements(SPROCKET_OR_HOVER_OR_TURBO)],
@@ -195,14 +186,14 @@ RICCO_HARBOR_ONE: SmsRegion = SmsRegion(
                 Requirements([[NozzleType.spray]]),
                 Requirements(
                     [NozzleType.yoshi],
-                    location=f"{SmsRegionName.RICCO_FOUR_SEVEN} - Shadow Mario Revisited",
+                    location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
             hard=[
                 Requirements(SPRAY_OR_HOVER),
                 Requirements(
                     [NozzleType.yoshi],
-                    location=f"{SmsRegionName.RICCO_FOUR_SEVEN} - Shadow Mario Revisited",
+                    location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
             in_game_bit=239,
@@ -213,14 +204,14 @@ RICCO_HARBOR_ONE: SmsRegion = SmsRegion(
                 Requirements(SPRAY_OR_HOVER),
                 Requirements(
                     [NozzleType.yoshi],
-                    location=f"{SmsRegionName.RICCO_FOUR_SEVEN} - Shadow Mario Revisited",
+                    location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
             hard=[
                 Requirements(SPRAY_OR_HOVER_OR_TURBO),
                 Requirements(
                     [NozzleType.yoshi],
-                    location=f"{SmsRegionName.RICCO_FOUR_SEVEN} - Shadow Mario Revisited",
+                    location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
             in_game_bit=240,
@@ -233,24 +224,24 @@ RICCO_HARBOR_ONE: SmsRegion = SmsRegion(
             in_game_bit=233,
         ),
         BlueCoin(
-            "Ricco 1 Only - Tower Ground M",
+            "Tower Ground M",
             requirements=[Requirements(SPRAY_OR_HOVER)],
             hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
             in_game_bit=227,
         ),
         BlueCoin(
-            "Ricco 1 Only - Spawn Building Side M",
+            "Spawn Building Side M",
             [Requirements(SPRAY_OR_HOVER)],
             in_game_bit=241,
         ),
         BlueCoin(
-            "Ricco 1 Only - Inner Ship M",
+            "Inner Ship M",
             requirements=[Requirements(SPRAY_OR_HOVER)],
             hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
             in_game_bit=246,
         ),
         BlueCoin(
-            "Ricco 1 Only - Yellow Submarine",
+            "Yellow Submarine",
             requirements=[Requirements([[NozzleType.spray]])],
             hard=[Requirements(SPRAY_OR_HOVER)],
             advanced=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
@@ -286,7 +277,14 @@ RICCO_HARBOR_THREE: SmsRegion = SmsRegion(
             requirements=[Requirements(ROCKET_OR_HOVER)],
             hard=[Requirements(manual_none=True)],
             in_game_bit=12,
-        )
+        ),
+        Shine(
+            "100 Coins",
+            requirements=[Requirements([[NozzleType.hover]])],
+            hard=[Requirements(manual_none=True)],
+            hundred=True,
+            in_game_bit=101,
+        ),
     ],
     blue_coins=[
         BlueCoin("Mesh Wall Klamber", in_game_bit=243),
@@ -298,8 +296,8 @@ RICCO_HARBOR_THREE: SmsRegion = SmsRegion(
     parent_region=SmsRegionName.RICCO_ENTRANCE,
 )
 
-RICCO_HARBOR_FOUR_SEVEN: SmsRegion = SmsRegion(
-    SmsRegionName.RICCO_FOUR_SEVEN,
+RICCO_HARBOR_FOUR: SmsRegion = SmsRegion(
+    SmsRegionName.RICCO_FOUR,
     requirements=[
         Requirements(location=f"{SmsRegionName.RICCO_THREE} - The Caged Shine Sprite")
     ],
@@ -310,22 +308,8 @@ RICCO_HARBOR_FOUR_SEVEN: SmsRegion = SmsRegion(
             hard=[Requirements(manual_none=True)],
             in_game_bit=13,
         ),
-        Shine(
-            "Gooper Blooper Returns",
-            requirements=[Requirements(SPRAY_OR_HOVER)],
-            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
-            advanced=[Requirements(ANY_FLUDD)],
-            in_game_bit=14,
-        ),
-        Shine("Red Coins on the Water", in_game_bit=15),
-        Shine(
-            "Shadow Mario Revisited",
-            requirements=[Requirements([[NozzleType.spray]])],
-            hard=[Requirements(SPRAY_OR_HOVER)],
-            in_game_bit=16,
-        ),
         Shine("Red Coins in Ricco Tower", in_game_bit=18),
-    ],
+    ],  # TODO: Fix logic with difficulties
     blue_coins=[
         BlueCoin(
             "Caged Blooper",
@@ -337,12 +321,56 @@ RICCO_HARBOR_FOUR_SEVEN: SmsRegion = SmsRegion(
     parent_region=SmsRegionName.RICCO_ENTRANCE,
 )
 
+RICCO_HARBOR_FIVE: SmsRegion = SmsRegion(
+    SmsRegionName.RICCO_FIVE,
+    requirements=[
+        Requirements(location=f"{SmsRegionName.RICCO_FOUR} - The Secret of Ricco Tower")
+    ],
+    shines=[
+        Shine(
+            "Gooper Blooper Returns",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            advanced=[Requirements(ANY_FLUDD)],
+            in_game_bit=14,
+        )
+    ],
+    blue_coins=[],
+    parent_region=SmsRegionName.RICCO_ENTRANCE,
+)
+
+RICCO_HARBOR_SIX: SmsRegion = SmsRegion(
+    SmsRegionName.RICCO_SIX,
+    requirements=[
+        Requirements(location=f"{SmsRegionName.RICCO_FIVE} - Gooper Blooper Returns")
+    ],
+    shines=[Shine("Red Coins on the Water", in_game_bit=15)],
+    blue_coins=[],
+    parent_region=SmsRegionName.RICCO_ENTRANCE,
+)
+
+RICCO_HARBOR_SEVEN: SmsRegion = SmsRegion(
+    SmsRegionName.RICCO_SEVEN,
+    requirements=[
+        Requirements(location=f"{SmsRegionName.RICCO_SIX} - Red Coins on the Water")
+    ],
+    shines=[
+        Shine(
+            "Shadow Mario Revisited",
+            requirements=[Requirements([[NozzleType.spray]])],
+            hard=[Requirements(SPRAY_OR_HOVER)],
+            in_game_bit=16,
+        )
+    ],
+    blue_coins=[],
+    nozzle_boxes=[NozzleBox("Turbo Box", in_game_bit=875)],
+    parent_region=SmsRegionName.RICCO_ENTRANCE,
+)
+
 RICCO_HARBOR_EIGHT: SmsRegion = SmsRegion(
     SmsRegionName.RICCO_EIGHT,
     requirements=[
-        Requirements(
-            location=f"{SmsRegionName.RICCO_FOUR_SEVEN} - Shadow Mario Revisited"
-        )
+        Requirements(location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited")
     ],
     shines=[
         Shine(

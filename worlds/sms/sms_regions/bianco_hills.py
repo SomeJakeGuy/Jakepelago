@@ -3,32 +3,6 @@ from .sms_region_helper import *
 BIANCO_HILLS_ENTRANCE: SmsRegion = SmsRegion(
     SmsRegionName.BIANCO_ENTRANCE,
     requirements=[Requirements(ANY_SPLASHER), Requirements(skip_forward=True)],
-    shines=[
-        Shine(
-            "100 Coins",  # TODO: Yoshi?
-            requirements=[
-                Requirements(
-                    SPRAY_OR_HOVER,
-                    location=f"{SmsRegionName.BIANCO_ONE} - Down with Petey Piranha!",
-                ),
-            ],
-            hard=[
-                Requirements(
-                    SPRAY_OR_HOVER_OR_TURBO,
-                    location=f"{SmsRegionName.BIANCO_ONE} - Down with Petey Piranha!",
-                ),
-            ],
-            advanced=[
-                Requirements(SPRAY_OR_HOVER),
-                Requirements(
-                    SPRAY_OR_HOVER_OR_TURBO,
-                    location=f"{SmsRegionName.BIANCO_ONE} - Down with Petey Piranha!",
-                ),
-            ],
-            hundred=True,
-            in_game_bit=100,
-        )
-    ],
     ticketed="Bianco Hills Ticket",
     parent_region=SmsRegionName.PLAZA,
 )
@@ -44,11 +18,28 @@ BIANCO_HILLS_ONE: SmsRegion = SmsRegion(
             in_game_bit=0,
         ),
         Shine(
-            "Down with Petey Piranha!",
-            requirements=[Requirements(SPRAY_AND_HOVER)],
-            hard=[Requirements(SPRAY_OR_HOVER)],
-            tears=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
-            in_game_bit=1,
+            "100 Coins",  # TODO: This can be much more thorough
+            requirements=[
+                Requirements(
+                    SPRAY_OR_HOVER,
+                    location=f"{SmsRegionName.BIANCO_TWO} - Down with Petey Piranha!",
+                ),
+            ],
+            hard=[
+                Requirements(
+                    SPRAY_OR_HOVER_OR_TURBO,
+                    location=f"{SmsRegionName.BIANCO_TWO} - Down with Petey Piranha!",
+                ),
+            ],
+            advanced=[
+                Requirements(SPRAY_OR_HOVER),
+                Requirements(
+                    SPRAY_OR_HOVER_OR_TURBO,
+                    location=f"{SmsRegionName.BIANCO_TWO} - Down with Petey Piranha!",
+                ),
+            ],
+            hundred=True,
+            in_game_bit=100,
         ),
     ],
     blue_coins=[
@@ -251,10 +242,28 @@ BIANCO_HILLS_ONE: SmsRegion = SmsRegion(
     parent_region=SmsRegionName.BIANCO_ENTRANCE,
 )
 
+BIANCO_HILLS_TWO: SmsRegion = SmsRegion(
+    SmsRegionName.BIANCO_TWO,
+    requirements=[
+        Requirements(location=f"{SmsRegionName.BIANCO_ONE} - Road to the Big Windmill")
+    ],
+    shines=[
+        Shine(
+            "Down with Petey Piranha!",
+            requirements=[Requirements(SPRAY_AND_HOVER)],
+            hard=[Requirements(SPRAY_OR_HOVER)],
+            tears=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            in_game_bit=1,
+        ),
+    ],
+    blue_coins=[],
+    parent_region=SmsRegionName.BIANCO_ENTRANCE,
+)
+
 BIANCO_HILLS_THREE: SmsRegion = SmsRegion(
     SmsRegionName.BIANCO_THREE,
     requirements=[
-        Requirements(location=f"{SmsRegionName.BIANCO_ONE} - Down with Petey Piranha!")
+        Requirements(location=f"{SmsRegionName.BIANCO_TWO} - Down with Petey Piranha!")
     ],
     shines=[
         Shine(
@@ -503,7 +512,7 @@ BIANCO_HILLS_SIX: SmsRegion = SmsRegion(
         BlueCoin("Chuckster Momma", in_game_bit=193),
     ],
     nozzle_boxes=[
-        NozzleBox("Turbo Box", [Requirements(ANY_SPLASHER)], in_game_bit=873)
+        NozzleBox("Turbo Box", [Requirements(SPRAY_OR_HOVER)], in_game_bit=873)
     ],
     parent_region=SmsRegionName.BIANCO_ENTRANCE,
 )
