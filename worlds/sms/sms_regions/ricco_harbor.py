@@ -20,6 +20,18 @@ RICCO_HARBOR_ONE: SmsRegion = SmsRegion(
             advanced=[Requirements(ANY_FLUDD)],
             in_game_bit=10,
         ),
+        Shine(
+            "100 Coins",
+            requirements=[
+                Requirements(ROCKET_OR_HOVER),
+                Requirements(
+                    location=f"{SmsRegionName.RICCO_FOUR} - The Secret of Ricco Tower"
+                ),
+            ],
+            hard=[Requirements(manual_none=True)],
+            hundred=True,
+            in_game_bit=101,
+        ),
     ],
     blue_coins=[
         BlueCoin(
@@ -277,13 +289,6 @@ RICCO_HARBOR_THREE: SmsRegion = SmsRegion(
             requirements=[Requirements(ROCKET_OR_HOVER)],
             hard=[Requirements(manual_none=True)],
             in_game_bit=12,
-        ),
-        Shine(
-            "100 Coins",
-            requirements=[Requirements([[NozzleType.hover]])],
-            hard=[Requirements(manual_none=True)],
-            hundred=True,
-            in_game_bit=101,
         ),
     ],
     blue_coins=[
