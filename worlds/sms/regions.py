@@ -30,11 +30,11 @@ def get_location_name_to_id():
     dict_locs: dict[str, int] = {}
     for sms_reg in ALL_REGIONS.values():
         for shine_loc in sms_reg.shines:
-            dict_locs.update({f"{sms_reg.name} - {shine_loc.name}": len(dict_locs)+1})
+            dict_locs.update({f"{sms_reg.name} - {shine_loc.name}": len(dict_locs) + 1})
         for blue_loc in sms_reg.blue_coins:
-            dict_locs.update({f"{sms_reg.name} - {blue_loc.name}": len(dict_locs)+1})
+            dict_locs.update({f"{sms_reg.name} - {blue_loc.name}": len(dict_locs) + 1})
         for nozz_loc in sms_reg.nozzle_boxes:
-            dict_locs.update({f"{sms_reg.name} - {nozz_loc.name}": len(dict_locs)+1})
+            dict_locs.update({f"{sms_reg.name} - {nozz_loc.name}": len(dict_locs) + 1})
     return dict_locs
 
 
