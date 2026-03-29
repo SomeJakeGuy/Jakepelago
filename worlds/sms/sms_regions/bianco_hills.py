@@ -18,25 +18,38 @@ BIANCO_HILLS_ONE: SmsRegion = SmsRegion(
             in_game_bit=0,
         ),
         Shine(
-            "100 Coins",  # TODO: This can be much more thorough
+            "100 Coins",
             requirements=[
+                Requirements(
+                    [[NozzleType.hover]],
+                    location=f"{SmsRegionName.BIANCO_ONE} - Road to the Big Windmill",
+                ),
                 Requirements(
                     SPRAY_OR_HOVER,
                     location=f"{SmsRegionName.BIANCO_TWO} - Down with Petey Piranha!",
                 ),
+                Requirements(
+                    [NozzleType.yoshi],
+                    location=f"{SmsRegionName.BIANCO_SEVEN} - Shadow Mario on the Loose",
+                ),
             ],
             hard=[
+                Requirements([[NozzleType.hover]]),
+                Requirements(
+                    SPRAY_OR_HOVER,
+                    location=f"{SmsRegionName.BIANCO_ONE} - Road to the Big Windmill",
+                ),
+                Requirements(
+                    SPRAY_OR_HOVER,
+                    location=f"{SmsRegionName.BIANCO_ONE} - Road to the Big Windmill",
+                ),
                 Requirements(
                     SPRAY_OR_HOVER_OR_TURBO,
-                    location=f"{SmsRegionName.BIANCO_TWO} - Down with Petey Piranha!",
+                    location=f"{SmsRegionName.BIANCO_SEVEN} - Shadow Mario on the Loose",
                 ),
             ],
             advanced=[
-                Requirements(SPRAY_OR_HOVER),
-                Requirements(
-                    SPRAY_OR_HOVER_OR_TURBO,
-                    location=f"{SmsRegionName.BIANCO_TWO} - Down with Petey Piranha!",
-                ),
+                Requirements(SPRAY_OR_HOVER_OR_TURBO),
             ],
             hundred=True,
             in_game_bit=100,
