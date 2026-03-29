@@ -65,6 +65,13 @@ CORONA_MOUNTAIN: SmsRegion = SmsRegion(
             in_game_bit=549,
         ),
     ],
-    nozzle_boxes=[NozzleBox("Rocket Box", in_game_bit=886)],
+    nozzle_boxes=[
+        NozzleBox(
+            "Rocket Box",
+            requirements=Requirements(SPRAY_AND_HOVER),
+            tears=Requirements(manual_none=True),
+            in_game_bit=886,
+        )
+    ],
     parent_region=SmsRegionName.PLAZA,
 )
