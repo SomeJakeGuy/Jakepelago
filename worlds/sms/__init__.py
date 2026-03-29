@@ -308,6 +308,8 @@ class SmsWorld(World):
         }
 
         for field in fields(self.options):
+            if "plando" in field.name.lower():
+                continue
             output_data["Options"][field.name] = getattr(self.options, field.name).value
 
         patch_path = os.path.join(output_directory, f"{self.multiworld.get_out_file_name_base(self.player)}"
