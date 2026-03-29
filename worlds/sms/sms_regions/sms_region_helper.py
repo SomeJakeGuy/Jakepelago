@@ -255,6 +255,10 @@ SPRAY_AND_ROCKET_OR_SPRAY_AND_HOVER: list[list[str]] = [
     [NozzleType.rocket, NozzleType.spray],
     [NozzleType.hover, NozzleType.spray],
 ]
+SPRAY_AND_TURBO_OR_HOVER_AND_TURBO: list[list[str]] = [
+    [NozzleType.spray, NozzleType.turbo],
+    [NozzleType.hover, NozzleType.turbo],
+]
 SPRAY_AND_HOVER_OR_ROCKET: list[list[str]] = [
     [NozzleType.rocket],
     [NozzleType.hover, NozzleType.spray],
