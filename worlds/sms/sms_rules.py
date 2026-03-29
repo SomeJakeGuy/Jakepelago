@@ -49,12 +49,9 @@ def interpret_requirements(
 
             for nozzle_req in single_req.nozzles:
                 if nozz_rule is default_rule:
-                    try:
-                        nozz_rule = lambda state, item_set=tuple(nozzle_req): state.has_all(
-                            item_set, world.player
-                        )
-                    except:
-                        test = 1
+                    nozz_rule = lambda state, item_set=tuple(nozzle_req): state.has_all(
+                        item_set, world.player
+                    )
                 else:
                     nozz_rule = lambda state, item_set=tuple(
                         nozzle_req

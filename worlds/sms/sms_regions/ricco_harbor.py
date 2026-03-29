@@ -125,7 +125,7 @@ RICCO_HARBOR_ONE: SmsRegion = SmsRegion(
             requirements=[
                 Requirements(SPROCKET_OR_HOVER),
                 Requirements(
-                    [NozzleType.yoshi],
+                    [[NozzleType.yoshi]],
                     location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
@@ -185,14 +185,14 @@ RICCO_HARBOR_ONE: SmsRegion = SmsRegion(
             requirements=[
                 Requirements([[NozzleType.spray]]),
                 Requirements(
-                    [NozzleType.yoshi],
+                    [[NozzleType.yoshi]],
                     location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
             hard=[
                 Requirements(SPRAY_OR_HOVER),
                 Requirements(
-                    [NozzleType.yoshi],
+                    [[NozzleType.yoshi]],
                     location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
@@ -203,14 +203,14 @@ RICCO_HARBOR_ONE: SmsRegion = SmsRegion(
             requirements=[
                 Requirements(SPRAY_OR_HOVER),
                 Requirements(
-                    [NozzleType.yoshi],
+                    [[NozzleType.yoshi]],
                     location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],
             hard=[
                 Requirements(SPRAY_OR_HOVER_OR_TURBO),
                 Requirements(
-                    [NozzleType.yoshi],
+                    [[NozzleType.yoshi]],
                     location=f"{SmsRegionName.RICCO_SEVEN} - Shadow Mario Revisited",
                 ),
             ],

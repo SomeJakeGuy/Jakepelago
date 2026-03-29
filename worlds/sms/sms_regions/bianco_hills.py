@@ -12,7 +12,7 @@ BIANCO_HILLS_ONE: SmsRegion = SmsRegion(
     shines=[
         Shine(
             "Road to the Big Windmill",
-            requirements=[Requirements(NozzleType.spray)],
+            requirements=[Requirements([[NozzleType.spray]])],
             hard=[Requirements(SPRAY_OR_HOVER)],
             advanced=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
             in_game_bit=0,
@@ -409,7 +409,7 @@ BIANCO_HILLS_FIVE: SmsRegion = SmsRegion(
         Shine(
             "Petey Piranha Strikes Back",
             requirements=[Requirements(SPRAY_AND_ROCKET_OR_SPRAY_AND_HOVER)],
-            hard=[Requirements(NozzleType.spray)],
+            hard=[Requirements([[NozzleType.spray]])],
             in_game_bit=4,
         )
     ],
