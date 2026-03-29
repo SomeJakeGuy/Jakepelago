@@ -21,8 +21,20 @@ SIRENA_BEACH_ONE: SmsRegion = SmsRegion(
     ],
     blue_coins=[
         BlueCoin("Ocean", in_game_bit=387),
-        BlueCoin("Right Male Noki", [Requirements(SPRAY_OR_HOVER)], in_game_bit=373),
-        BlueCoin("Right Female Noki", [Requirements(SPRAY_OR_HOVER)], in_game_bit=374),
+        BlueCoin(
+            "Right Male Noki",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            advanced=[Requirements(manual_none=True)],
+            in_game_bit=373,
+        ),
+        BlueCoin(
+            "Right Female Noki",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            advanced=[Requirements(manual_none=True)],
+            in_game_bit=374,
+        ),
     ],
     parent_region=SmsRegionName.SIRENA_ENTRANCE,
 )
@@ -47,12 +59,40 @@ SIRENA_BEACH_TWO: SmsRegion = SmsRegion(
         ),
     ],
     blue_coins=[
-        BlueCoin("Sign", [Requirements(SPRAY_OR_HOVER)], in_game_bit=370),
+        BlueCoin(
+            "Sign",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            advanced=[Requirements(ANY_FLUDD)],
+            in_game_bit=370,
+        ),
         BlueCoin("Cabana Roof", in_game_bit=371),
-        BlueCoin("Outside Torch", [Requirements(SPRAY_OR_HOVER)], in_game_bit=372),
-        BlueCoin("Hotel Ledge", [Requirements([[NozzleType.hover]])], in_game_bit=375),
-        BlueCoin("Flowers", [Requirements(SPRAY_OR_HOVER)], in_game_bit=386),
-        BlueCoin("Third Floor Lamp", [Requirements(SPRAY_OR_HOVER)], in_game_bit=392),
+        BlueCoin(
+            "Outside Torch",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(manual_none=True)],
+            in_game_bit=372,
+        ),
+        BlueCoin(
+            "Hotel Ledge",
+            requirements=[Requirements(ROCKET_OR_HOVER)],
+            hard=[Requirements(ROCKET_OR_HOVER_OR_TURBO)],
+            tears=[Requirements(manual_none=True)],
+            in_game_bit=375,
+        ),
+        BlueCoin(
+            "Flowers",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            advanced=[Requirements(ANY_FLUDD)],
+            in_game_bit=386,
+        ),
+        BlueCoin(
+            "Third Floor Lamp",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            in_game_bit=392,
+        ),
     ],
     parent_region=SmsRegionName.SIRENA_ENTRANCE,
 )
@@ -78,14 +118,38 @@ SIRENA_BEACH_THREE: SmsRegion = SmsRegion(
         ),
     ],
     blue_coins=[
-        BlueCoin("Big Light", [Requirements([[NozzleType.spray]])], in_game_bit=376),
         BlueCoin(
-            "Box Hole", [Requirements([[NozzleType.yoshi]])], in_game_bit=378
+            "Big Light",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            advanced=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            in_game_bit=376,
+        ),
+        BlueCoin(
+            "Box Hole",
+            requirements=[Requirements([[NozzleType.yoshi]])],
+            advanced=[Requirements(manual_none=True)],
+            in_game_bit=378,
         ),  # This hard requires Yoshi without Episode rando
         BlueCoin("Glass Hole", in_game_bit=379),
-        BlueCoin("White Painting", [Requirements(ANY_SPLASHER)], in_game_bit=380),
-        BlueCoin("Dolpic Poster", [Requirements(ANY_SPLASHER)], in_game_bit=381),
-        BlueCoin("Bookshelf", [Requirements(ANY_SPLASHER)], in_game_bit=382),
+        BlueCoin(
+            "White Painting",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            in_game_bit=380,
+        ),
+        BlueCoin(
+            "Dolpic Poster",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            advanced=[Requirements(ANY_FLUDD)],
+            in_game_bit=381,
+        ),
+        BlueCoin(
+            "Bookshelf",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            in_game_bit=382,
+        ),
         BlueCoin("Attic", in_game_bit=383),
     ],
     parent_region=SmsRegionName.SIRENA_ENTRANCE,
@@ -112,7 +176,12 @@ SIRENA_BEACH_FOUR: SmsRegion = SmsRegion(
         ),
     ],
     blue_coins=[
-        BlueCoin("Casino Torch", [Requirements(SPRAY_OR_HOVER)], in_game_bit=398),
+        BlueCoin(
+            "Casino Torch",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(manual_none=True)],
+            in_game_bit=398,
+        ),
         BlueCoin("Slot machine", in_game_bit=399),
         BlueCoin("Crate", in_game_bit=377),
         BlueCoin("Attic Boo", in_game_bit=385),
@@ -136,7 +205,13 @@ SIRENA_BEACH_FIVE: SmsRegion = SmsRegion(
         ),
     ],
     blue_coins=[
-        BlueCoin("Casino M", [Requirements([[NozzleType.spray]])], in_game_bit=391)
+        BlueCoin(
+            "Casino M",
+            requirements=[Requirements([[NozzleType.spray]])],
+            hard=[Requirements(SPRAY_OR_HOVER)],
+            tears=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            in_game_bit=391,
+        )
     ],
     parent_region=SmsRegionName.SIRENA_ENTRANCE,
 )
@@ -155,8 +230,20 @@ SIRENA_BEACH_SIX: SmsRegion = SmsRegion(
         ),
     ],
     blue_coins=[
-        BlueCoin("Left Male Noki", [Requirements(SPRAY_OR_HOVER)], in_game_bit=384),
-        BlueCoin("Left Female Noki", [Requirements(SPRAY_OR_HOVER)], in_game_bit=390),
+        BlueCoin(
+            "Left Male Noki",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            tears=[Requirements(manual_none=True)],
+            in_game_bit=384,
+        ),
+        BlueCoin(
+            "Left Female Noki",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            tears=[Requirements(manual_none=True)],
+            in_game_bit=390,
+        ),
     ],
     parent_region=SmsRegionName.SIRENA_ENTRANCE,
 )
@@ -175,21 +262,48 @@ SIRENA_BEACH_SEVEN: SmsRegion = SmsRegion(
         ),
     ],
     blue_coins=[
-        BlueCoin("Outside M", [Requirements(SPRAY_OR_HOVER)], in_game_bit=388),
-        BlueCoin("Second Floor M", [Requirements(SPRAY_OR_HOVER)], in_game_bit=389),
         BlueCoin(
-            "Ground Floor Triangle", [Requirements(SPRAY_AND_HOVER)], in_game_bit=393
+            "Outside M",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(manual_none=True)],
+            in_game_bit=388,
+        ),
+        BlueCoin(
+            "Second Floor M",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            in_game_bit=389,
+        ),
+        BlueCoin(
+            "Ground Floor Triangle",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            advanced=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            in_game_bit=393,
         ),
         BlueCoin(
             "First Floor Triangle",
-            [Requirements([[NozzleType.spray]])],
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            advanced=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
             in_game_bit=394,
         ),
-        BlueCoin("Attic M", [Requirements([[NozzleType.spray]])], in_game_bit=395),
         BlueCoin(
-            "Second Floor X", [Requirements([[NozzleType.spray]])], in_game_bit=396
+            "Attic M",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            in_game_bit=395,
         ),
-        BlueCoin("First Floor X", [Requirements(SPRAY_AND_HOVER)], in_game_bit=397),
+        BlueCoin(
+            "Second Floor X",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            advanced=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            in_game_bit=396,
+        ),
+        BlueCoin(
+            "First Floor X",
+            requirements=[Requirements(SPRAY_OR_HOVER)],
+            hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
+            in_game_bit=397,
+        ),
     ],
     parent_region=SmsRegionName.SIRENA_ENTRANCE,
 )
