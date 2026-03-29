@@ -20,6 +20,7 @@ PIANTA_VILLAGE_ONE: SmsRegion = SmsRegion(
             hard=[Requirements(SPRAY_OR_HOVER_OR_TURBO)],
             in_game_bit=60,
         ),
+        Shine("100 Coins", hundred=True, in_game_bit=106),
     ],
     blue_coins=[
         BlueCoin("River End", in_game_bit=432),
@@ -273,7 +274,6 @@ PIANTA_VILLAGE_FIVE: SmsRegion = SmsRegion(
             tears=[Requirements(HOVER_OR_YOSHI)],
             in_game_bit=68,
         ),
-        Shine("100 Coins", [Requirements(ALL_SPLASHER)], hundred=True, in_game_bit=106),
     ],
     blue_coins=[
         BlueCoin("Back Beehive", [Requirements([[NozzleType.yoshi]])], in_game_bit=436),
