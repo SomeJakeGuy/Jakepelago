@@ -6,18 +6,21 @@ NOKI_BAY_ENTRANCE: SmsRegion = SmsRegion(SmsRegionName.NOKI_ENTRANCE,
     ticketed="Noki Bay Ticket", parent_region = SmsRegionName.PLAZA)
 
 NOKI_BAY_ALL: SmsRegion = SmsRegion(SmsRegionName.NOKI_ALL,
-    shines=[Shine("Uncork the Waterfall", [Requirements(SPRAY_AND_HOVER)], in_game_bit=50),
-        Shine("The Boss of Tricky Ruins", [Requirements(SPRAY_AND_HOVER)], in_game_bit=51),
-        Shine("Red Coins in a Bottle", [Requirements(location=f"{SmsRegionName.NOKI_ALL} - The Boss of Tricky Ruins")], in_game_bit=52), # Underwater Nozzle
-        Shine("Eely-Mouth's Dentist", [Requirements(SPRAY_AND_HOVER)], in_game_bit=53), # Underwater Nozzle
+    shines=[Shine("Uncork the Waterfall", requirements=[Requirements(SPRAY_AND_HOVER)], hard=[Requirements(SPRAY_OR_HOVER)], in_game_bit=50),
+        Shine("The Boss of Tricky Ruins", requirements=[Requirements(SPRAY_AND_HOVER)],  hard=[Requirements(SPRAY_OR_HOVER)], advanced=[Requirements(manual_none=True)],  in_game_bit=51),
+        Shine("Red Coins in a Bottle", requirements=[Requirements([[NozzleType.hover]], location=f"{SmsRegionName.NOKI_ALL} - The Boss of Tricky Ruins")], tears=[Requirements(location=f"{SmsRegionName.NOKI_ALL} - The Boss of Tricky Ruins")], in_game_bit=52), # Underwater Nozzle
+        Shine("Eely-Mouth's Dentist", requirements=[Requirements(SPRAY_AND_HOVER)], tears=[Requirements(manual_none=True)], in_game_bit=53), # Underwater Nozzle
         Shine("Il Piantissimo's Surf Swim", [Requirements(location=f"{SmsRegionName.NOKI_ALL} - Eely-Mouth's Dentist")], in_game_bit=54),
-        Shine("The Shell's Secret", [Requirements([[NozzleType.hover]],
+        Shine("The Shell's Secret", requirements=[Requirements([[NozzleType.hover]],
+            location=f"{SmsRegionName.NOKI_ALL} - Il Piantissimo's Surf Swim")], hard=[Requirements(
             location=f"{SmsRegionName.NOKI_ALL} - Il Piantissimo's Surf Swim")], in_game_bit=55),
-        Shine("Hold It, Shadow Mario!", [Requirements(SPRAY_AND_HOVER)], in_game_bit=56),
-        Shine("The Red Coin Fish", [Requirements([[NozzleType.hover]],
+        Shine("Hold It, Shadow Mario!", requirements=[Requirements(SPRAY_AND_HOVER)], hard=[Requirements([[NozzleType.spray]])], advanced=[Requirements(SPRAY_OR_HOVER)], in_game_bit=56),
+        Shine("The Red Coin Fish", requirements=[Requirements([[NozzleType.hover]],
+            location=f"{SmsRegionName.NOKI_ALL} - Hold It, Shadow Mario!")], tears=[Requirements(
             location=f"{SmsRegionName.NOKI_ALL} - Hold It, Shadow Mario!")], in_game_bit=57), # Underwater Nozzle
-        Shine("A Golden Bird", [Requirements([[NozzleType.spray]])], in_game_bit=59),
+        Shine("A Golden Bird", requirements=[Requirements([[NozzleType.spray]])], advanced=[Requirements(SPRAY_OR_HOVER)], tears=[Requirements(SPRAY_OR_HOVER_OR_TURBO)], in_game_bit=59),
         Shine("Red Coins on the Half Shell", [Requirements([[NozzleType.hover]],
+            location=f"{SmsRegionName.NOKI_ALL} - The Shell's Secret")], [Requirements(
             location=f"{SmsRegionName.NOKI_ALL} - The Shell's Secret")], in_game_bit=58),
         Shine("100 Coins", [Requirements(SPRAY_AND_HOVER)], hundred=True, in_game_bit=105)],
     blue_coins=[BlueCoin("Rocket Alcove", [Requirements(ROCKET_OR_HOVER)], in_game_bit=470),
