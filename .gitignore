@@ -199,3 +199,8 @@ _speedups.html
 .LSOverride
 Thumbs.db
 [Dd]esktop.ini
+
+# Fuzzer related folders/files
+fuzz_output/
+Archipelago-fuzzer/
+fuzz.py
