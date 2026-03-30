@@ -36,7 +36,7 @@ GELATO_BEACH_ONE: SmsRegion = SmsRegion(
             requirements=[
                 Requirements(SPRAY_OR_HOVER),
                 Requirements(
-                    SPRAY_OR_HOVER_OR_ROCKET,
+                    [[NozzleType.turbo]],
                     location=f"{SmsRegionName.GELATO_SEVEN} - It's Shadow Mario! After Him!",
                 ),
             ],
@@ -75,7 +75,6 @@ GELATO_BEACH_ONE: SmsRegion = SmsRegion(
                     location=f"{SmsRegionName.GELATO_SEVEN} - It's Shadow Mario! After Him!",
                 ),
             ],
-            advanced=[Requirements(SPRAY_OR_HOVER_OR_ROCKET)],
             hundred=True,
             in_game_bit=102,
         ),
@@ -347,7 +346,7 @@ GELATO_BEACH_FIVE: SmsRegion = SmsRegion(
                 Requirements(ANY_FLUDD),
                 Requirements(
                     ANY_NOZZLE,
-                    f"{SmsRegionName.GELATO_FIVE} - Il Piantissimo's Sand Sprint",
+                    location=f"{SmsRegionName.GELATO_FIVE} - Il Piantissimo's Sand Sprint",
                 ),
             ],
             hard=[Requirements(manual_none=True)],
