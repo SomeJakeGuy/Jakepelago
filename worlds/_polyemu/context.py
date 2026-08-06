@@ -29,6 +29,21 @@ class PolyEmuClientCommandProcessor(ClientCommandProcessor):
             status = "Connected" if self.ctx.polyemu_ctx.adapter.is_connected() else "Not Connected"
             logger.info(f"Emulator Connection Status: {status}")
 
+    def _cmd_change_adapter(self, adapter_name: str = "") -> bool:
+        """Switch the active PolyEmu adapter. Run with no argument to list available adapters."""
+        if not isinstance(self.ctx, PolyEmuClientContext):
+            return False
+
+        available = AutoAdapterRegister.adapter_types
+        if not adapter_name or adapter_name not in available:
+            if adapter_name not in available:
+                logger.info(f"Unknown adapter: {adapter_name}. Available adapters: {', '.join(available)}")
+            logger.info(f"Current adapter: {self.ctx.polyemu_ctx.adapter.name}")
+            logger.info(f"Available adapters: {', '.join(available)}")
+            return False
+
+        Utils.async_start(self.ctx.switch_adapter(adapter_name))
+        return True
 
 class PolyEmuClientContext(CommonContext):
     command_processor = PolyEmuClientCommandProcessor
@@ -47,15 +62,35 @@ class PolyEmuClientContext(CommonContext):
         self.auth_status = AuthStatus.NOT_AUTHENTICATED
         self.password_requested = False
         self.client_handler = None
-        # TODO: Add a way to swap these based on a user command or something
         self.polyemu_ctx = PolyEmuContext(AutoAdapterRegister.get_adapter("Default Adapter"))
-        # self.polyemu_ctx = PolyEmuContext(AutoAdapterRegister.get_adapter("SNI Adapter"))
         self.watcher_timeout = 0.5
 
     def make_gui(self):
         ui = super().make_gui()
-        ui.base_title = "Archipelago PolyEmu Client"
-        return ui
+
+        from .gui import build_manager
+        manager = build_manager(ui)
+        manager.base_title = "Archipelago PolyEmu Client"
+        return manager
+
+    async def switch_adapter(self, adapter_name: str) -> None:
+        """Swaps the active adapter, disconnecting from the emulator and server first if connected."""
+        if self.polyemu_ctx.adapter.name == adapter_name:
+            return
+
+        if self.polyemu_ctx.adapter.is_connected():
+            await self.polyemu_ctx.adapter.disconnect()
+
+        if self.server is not None and not self.server.socket.closed:
+            await self.disconnect(False)
+
+        self.auth = None
+        self.username = None
+        self.client_handler = None
+        self.game_id = None
+        self.finished_game = False
+        self.polyemu_ctx = PolyEmuContext(AutoAdapterRegister.get_adapter(adapter_name))
+        self.watcher_event.set()
 
     def on_package(self, cmd: str, args: dict[str, Any]):
         if cmd == "Connected":
@@ -253,6 +288,8 @@ def launch(*launch_args: str) -> None:
     async def main():
         parser = get_base_parser()
         parser.add_argument("patch_file", default="", type=str, nargs="?", help="Path to an Archipelago patch file")
+        parser.add_argument("--adapter", default="", type=str, nargs="?", help="Select which PolyEmu Adapter you "
+            f"want to use. Available Options: {', '.join(AutoAdapterRegister.adapter_types)}")
         args = parser.parse_args(launch_args)
 
         if args.patch_file != "":
@@ -262,6 +299,9 @@ def launch(*launch_args: str) -> None:
 
         ctx = PolyEmuClientContext(args.connect, args.password)
         ctx.server_task = asyncio.create_task(server_loop(ctx), name="ServerLoop")
+
+        if args.adapter:
+            await ctx.switch_adapter(args.adapter)
 
         if gui_enabled:
             ctx.run_gui()
