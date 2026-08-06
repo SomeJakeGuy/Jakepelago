@@ -63,11 +63,25 @@ class SNES(PlatformBase):
     MISC = 0x08
 
 
+class GC(PlatformBase):
+    _ID = 0x05
+
+    # Only System Area, everything is accessible in same region.
+
+
+class WII(PlatformBase):
+    _ID = 0x06
+
+    # Only System Area, everything is accessible in same region.
+
+
 class PLATFORMS:
     GB = GB
     GBC = GBC
     GBA = GBA
     SNES = SNES
+    GC = GC
+    WII = WII
 
     @staticmethod
     def cast_to_int(value: int | type[PlatformBase]):
