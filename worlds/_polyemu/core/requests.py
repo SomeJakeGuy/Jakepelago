@@ -13,7 +13,7 @@ __all__ = [
     "RequestType", "RequestChainHeader", "RequestChain",
     "AutoRequestRegister", "Request", "NoOpRequest",
     "SupportedOperationsRequest", "PlatformRequest", "ListDevicesRequest",
-    "MemorySizeRequest", "ReadRequest", "WriteRequest", "GuardRequest",
+    "MemorySizeRequest", "ReadRequest", "WriteRequest", "GuardRequest", "PointerReadRequest", "PointerWriteRequest",
     "LockRequest", "UnlockRequest", "DisplayMessageRequest",
 ]
 
@@ -27,6 +27,8 @@ class RequestType(IntEnum):
     READ = 0x10
     WRITE = 0x11
     GUARD = 0x12
+    POINTER_READ = 0x13
+    POINTER_WRITE = 0x14
     LOCK = 0x20
     UNLOCK = 0x21
     DISPLAY_MESSAGE = 0x22
@@ -221,3 +223,63 @@ class DisplayMessageRequest(Request):
 
     def _get_body(self):
         return len(self.message).to_bytes(2, "big") + self.message.encode("utf-8")
+
+
+class PointerReadRequest(Request):
+    type = RequestType.POINTER_READ
+
+    domain_id: int
+    base_address: int
+    offsets: list[int]
+    size: int
+
+    def __init__(self, domain_id: int, base_address: int, offsets: Sequence[int], size: int):
+        super().__init__()
+        self.domain_id = domain_id
+        self.base_address = base_address
+        self.offsets = list(offsets)
+        self.size = size
+
+    @classmethod
+    def consume_from_buffer(cls, buffer: Buffer):
+        domain_id = buffer.consume_int(1)
+        base_address = buffer.consume_int(8)
+        offset_count = buffer.consume_int(1)
+        offsets = [buffer.consume_int(8) for _ in range(offset_count)]
+        size = buffer.consume_int(2)
+        return cls(domain_id, base_address, offsets, size)
+
+    def _get_body(self):
+        return (struct.pack(">BQB", self.domain_id, self.base_address, len(self.offsets))
+                + b"".join(struct.pack(">Q", o) for o in self.offsets)
+                + struct.pack(">H", self.size))
+
+
+class PointerWriteRequest(Request):
+    type = RequestType.POINTER_WRITE
+
+    domain_id: int
+    base_address: int
+    offsets: list[int]
+    data: bytes
+
+    def __init__(self, domain_id: int, base_address: int, offsets: Sequence[int], data: Sequence[int]):
+        super().__init__()
+        self.domain_id = domain_id
+        self.base_address = base_address
+        self.offsets = list(offsets)
+        self.data = bytes(data)
+
+    @classmethod
+    def consume_from_buffer(cls, buffer: Buffer):
+        domain_id = buffer.consume_int(1)
+        base_address = buffer.consume_int(8)
+        offset_count = buffer.consume_int(1)
+        offsets = [buffer.consume_int(8) for _ in range(offset_count)]
+        data = buffer.consume_bytes(buffer.consume_int(2))
+        return cls(domain_id, base_address, offsets, data)
+
+    def _get_body(self):
+        return (struct.pack(">BQB", self.domain_id, self.base_address, len(self.offsets))
+                + b"".join(struct.pack(">Q", o) for o in self.offsets)
+                + struct.pack(">H", len(self.data)) + self.data)
