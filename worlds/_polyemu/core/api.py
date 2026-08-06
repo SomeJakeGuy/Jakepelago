@@ -3,14 +3,18 @@ from typing import Sequence
 
 from .adapter import Adapter
 from .errors import AutoPolyEmuErrorRegister, PolyEmuError
-from .requests import Request, NoOpRequest, ListDevicesRequest, ReadRequest, WriteRequest, GuardRequest, LockRequest, UnlockRequest, SupportedOperationsRequest, PlatformRequest, MemorySizeRequest, DisplayMessageRequest
-from .responses import ResponseType, Response, ResponseChain, ErrorResponse, ListDevicesResponse, ReadResponse, WriteResponse, GuardResponse, MemorySizeResponse, SupportedOperationsResponse, LockResponse, UnlockResponse, PlatformResponse, DisplayMessageResponse
+from .requests import Request, NoOpRequest, ListDevicesRequest, ReadRequest, WriteRequest, GuardRequest, LockRequest, \
+    UnlockRequest, SupportedOperationsRequest, PlatformRequest, MemorySizeRequest, DisplayMessageRequest, \
+    PointerReadRequest, PointerWriteRequest
+from .responses import ResponseType, Response, ResponseChain, ErrorResponse, ListDevicesResponse, ReadResponse, \
+    GuardResponse, MemorySizeResponse, SupportedOperationsResponse, LockResponse, UnlockResponse, PlatformResponse, \
+    DisplayMessageResponse
 
 
 __all__ = [
     "DEFAULT_DEVICE_ID", "PolyEmuContext", "send_requests", "no_op", "list_devices",
     "get_memory_size", "get_platform", "get_supported_operations",
-    "guarded_read", "read", "write", "lock", "unlock", "display_message",
+    "guarded_read", "read", "write", "lock", "unlock", "display_message", "pointer_read", "pointer_write"
 ]
 
 
@@ -78,44 +82,104 @@ async def get_supported_operations(ctx: PolyEmuContext) -> list[int]:
     return res.supported_operations[:]
 
 
-async def guarded_read(ctx: PolyEmuContext, read_list: Sequence[tuple[int, int, int]],
-                       guard_list: Sequence[tuple[int, Sequence[int], int]]) -> list[bytes] | None:
-    guards = [GuardRequest(domain, address, expected_data) for address, expected_data, domain in guard_list]
-    reads = [ReadRequest(domain, address, size) for address, size, domain in read_list]
+async def _send_guarded(ctx: PolyEmuContext, requests: list[Request],
+    guard_list: Sequence[tuple[int, Sequence[int], int]]) -> list[Response] | None:
 
-    response_list = await send_requests(ctx, guards + reads)
+    guards = [GuardRequest(domain, address, expected_data) for address, expected_data, domain in guard_list]
+    response_list = await send_requests(ctx, guards + requests)
     guard_responses: list[GuardResponse] = response_list[:len(guards)]
-    read_responses: list[ReadResponse | GuardResponse] = response_list[len(guards):]
+    remaining = response_list[len(guards):]
 
     for res in guard_responses:
         if not res.validated:
             return None
 
-    return [res.data for res in read_responses]
+    return remaining
+
+
+async def guarded_read(ctx: PolyEmuContext, read_list: Sequence[tuple[int, int, int]],
+    guard_list: Sequence[tuple[int, Sequence[int], int]]) -> list[bytes] | None:
+    """
+    Performs a Guarded read request using the provided read list.
+    Expects an order of tuple[int, int, int]: ram address, size of bytes to read, and which domain to read from.
+    """
+
+    reads = [ReadRequest(domain, address, size) for address, size, domain in read_list]
+    responses: list[ReadResponse | GuardResponse] = await _send_guarded(ctx, reads, guard_list)
+    return None if responses is None else [res.data for res in responses]
+
+
+async def guarded_pointer_read(ctx: PolyEmuContext, read_list: Sequence[tuple[int, Sequence[int], int, int]],
+    guard_list: Sequence[tuple[int, Sequence[int], int]]) -> list[bytes] | None:
+    """
+    Performs a Guarded read request using the provided read list and any related pointer offset chains.
+    Expects an order of tuple[int, Sequence[int], int, int]: ram address, offsets from the pointer address that was
+        last read, size of bytes to read, and which domain to read from.
+    """
+
+    reads = [PointerReadRequest(domain, base_address, offsets, size) for base_address, offsets, size, domain in read_list]
+    responses: list[ReadResponse | GuardResponse] = await _send_guarded(ctx, reads, guard_list)
+    return None if responses is None else [res.data for res in responses]
 
 
 async def read(ctx: PolyEmuContext, read_list: Sequence[tuple[int, int, int]]) -> list[bytes]:
+    """
+    Performs a Read request using the provided read list.
+    Expects an order of tuple[int, int, int]: ram address, size of bytes to read, and which domain to read from.
+    """
     return await guarded_read(ctx, read_list, [])
 
 
+async def pointer_read(ctx: PolyEmuContext, read_list: Sequence[tuple[int, Sequence[int], int, int]]) -> list[bytes]:
+    """
+    Performs a Read request using the provided read list and any related pointer offset chains.
+    Expects an order of tuple[int, Sequence[int], int, int]: ram address, offsets from the pointer address that was
+        last read, size of bytes to read, and which domain to read from.
+    """
+    return await guarded_pointer_read(ctx, read_list, [])
+
+
 async def guarded_write(ctx: PolyEmuContext, write_list: Sequence[tuple[int, Sequence[int], int]],
-                        guard_list: Sequence[tuple[int, Sequence[int], int]]) -> bool:
-    guards = [GuardRequest(domain, address, expected_data) for address, expected_data, domain in guard_list]
+    guard_list: Sequence[tuple[int, Sequence[int], int]]) -> bool:
+    """
+    Performs a Guarded write request using the provided read list.
+    Expects an order of tuple[int, Sequence[int], int]: ram address, bytes as an int Sequence to write back to the
+        ram address, and which domain to read from.
+    """
+
     writes = [WriteRequest(domain, address, data) for address, data, domain in write_list]
+    return await _send_guarded(ctx, writes, guard_list) is not None
 
-    response_list = await send_requests(ctx, guards + writes)
-    guard_responses: list[GuardResponse] = response_list[:len(guards)]
-    write_responses: list[WriteResponse | GuardResponse] = response_list[len(guards):]
 
-    for res in guard_responses:
-        if not res.validated:
-            return False
+async def guarded_pointer_write(ctx: PolyEmuContext, write_list: Sequence[tuple[int, Sequence[int], Sequence[int], int]],
+    guard_list: Sequence[tuple[int, Sequence[int], int]]) -> bool:
+    """
+    Performs a Guarded write request using the provided read list and any related pointer offset chains.
+    Expects an order of tuple[int, Sequence[int], Sequence[int], int]: ram address, offsets from the pointer address
+        that was last read, bytes as an int Sequence to write back to the ram address, and which domain to read from.
+    """
 
-    return True
+    writes = [PointerWriteRequest(domain, base_address, offsets, data) for base_address, offsets, data, domain in write_list]
+    return await _send_guarded(ctx, writes, guard_list) is not None
 
 
 async def write(ctx: PolyEmuContext, write_list: Sequence[tuple[int, Sequence[int], int]]) -> None:
+    """
+    Performs a Write request using the provided read list.
+    Expects an order of tuple[int, Sequence[int], int]: ram address, bytes as an int Sequence to write back to the
+        ram address, and which domain to read from.
+    """
     await guarded_write(ctx, write_list, [])
+
+
+async def pointer_write(ctx: PolyEmuContext, write_list: Sequence[tuple[int, Sequence[int], Sequence[int], int]]) -> None:
+    """
+    Performs a Write request using the provided read list and any related pointer offset chains.
+    Expects an order of tuple[int, Sequence[int], Sequence[int], int]: ram address, offsets from the pointer address
+        that was last read, bytes as an int Sequence to write back to the ram address, and which domain to read from.
+    """
+
+    await guarded_pointer_write(ctx, write_list, [])
 
 
 async def lock(ctx: PolyEmuContext) -> None:
