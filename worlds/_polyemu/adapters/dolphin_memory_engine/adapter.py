@@ -6,6 +6,7 @@ from ...core.requests import (RequestType, RequestChain, NoOpRequest, PlatformRe
 from ...core.responses import (Response, ResponseChain, ResponseChainHeader, ErrorResponse, NoOpResponse,
     PlatformResponse, ListDevicesResponse, ReadResponse, WriteResponse, SupportedOperationsResponse)
 from ...core.errors import ErrorType
+
 import dolphin_memory_engine as dme
 
 __all__ = [
@@ -17,7 +18,7 @@ SUPPORTED_OPERATIONS = [RequestType.NO_OP, RequestType.SUPPORTED_OPERATIONS, Req
 
 class DMEAdapter(Adapter):
     name = "DME Adapter"
-    game_id_length: int
+    game_id_length: int = 6
     _platform_id: int
     _device_id: bytes
 
@@ -27,18 +28,24 @@ class DMEAdapter(Adapter):
     def is_connected(self) -> bool:
         return dme.is_hooked()
 
-    async def connect(self, game_id: str = "", dolphin_str: str = "") -> None:
-        if game_id and not dolphin_str:
-            self.game_id_length = len(game_id)
-            dme.hook_by_game_id(game_id)
-        elif not game_id and dolphin_str:
-            dmeIDs: list[int] = dme.get_process_ids(dolphin_str)
-            dme.hook(dmeIDs[0])
-        elif game_id and dolphin_str:
-            self.game_id_length = len(game_id)
-            dme.get_process_id_by_game_id(game_id, dolphin_str)
-        else:
-            dme.hook()
+    async def connect(self) -> None:
+        # if game_id and not dolphin_str:
+        #    self.game_id_length = len(game_id)
+        #    dme.hook_by_game_id(game_id)
+        # elif not game_id and dolphin_str:
+        #    dmeIDs: list[int] = dme.get_process_ids(dolphin_str)
+        #    dme.hook(dmeIDs[0])
+        # elif game_id and dolphin_str:
+        #    self.game_id_length = len(game_id)
+        #    dme.get_process_id_by_game_id(game_id, dolphin_str)
+        # else:
+        #    dme.hook()
+        dme.hook()
+        dolphin_status: str = dme.get_status().name
+
+        if not (dme.is_hooked() and dolphin_status == "hooked"):
+            dme.un_hook()
+            return None
 
         self._platform_id, self._device_id = self._read_header()
 
